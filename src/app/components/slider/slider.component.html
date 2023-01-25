@@ -1,0 +1,24 @@
+<div class="SliderContainer" *ngIf="this.Slider__Arr.length > 2">
+  <div class="SliderWrapper">
+    <div class="Slide" [ngClass]="this.i == 0 ? 'Active' : ''" *ngFor="let Slider of this.Slider__Arr; let i = index">
+      <img [routerLink]="['/characters/character/', this.Slider.id]" src="{{ this.Slider.image }}" alt="" />
+      <div class="SliderCaption">
+        <h1>
+          {{ this.Slider.name }}
+        </h1>
+        <p>{{ this.Slider.location.name }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="SiderTabWrapper">
+    <span class="SiderTab" [ngClass]="this.i == 0 ? 'Active' : ''" *ngFor="let Slider of this.Slider__Arr; let i = index" tabIndex="{{ this.i }} " (click)="SliderTab(this.i)"></span>
+  </div>
+  <div class="ButtonWrapper">
+    <button class="Button-Slider" (click)="PrevSlide(-1)">
+      <i class="fas fa-angle-left"></i>
+    </button>
+    <button class="Button-Slider" (click)="NextSlide(1)">
+      <i class="fas fa-angle-right"></i>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+@import "../../../assets/scss/Mixin";
+@import "../../../assets/scss/Reset";
+@import "../../../assets/scss/Variable";
+.SliderContainer {
+  position: relative;
+  width: $full-width;
+  height: $full-height-vh - 20vh;
+  -webkit-user-select: none;
+  user-select: none;
+  max-height: 400px;
+  background: $bg-color-dark;
+  @include screen-md {
+    max-height: 650px;
+  }
+  .SliderWrapper {
+    width: $full-width;
+    height: $full-height;
+    text-align: center;
+    font-size: $fs-medium;
+    .SliderCaption {
+      @include display-flex(column, center, center, $size-1rem);
+      position: absolute;
+      bottom: $size-3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: $color-white-default;
+      h1 {
+        font-size: clamp($fs-large, $fs-large-xl, $fs-large-xxl);
+        font-weight: $fw-bold;
+        color: inherit;
+      }
+      p {
+        font-size: $fs-medium;
+        font-weight: $fw-medium;
+      }
+    }
+    .Slide {
+      display: none;
+      width: $full-width;
+      height: $full-height;
+      opacity: $opacity-0;
+      &.Active {
+        display: block !important;
+        animation: fede-in 0.5s ease-in forwards;
+      }
+      @keyframes fede-in {
+        from {
+          opacity: $opacity-0;
+        }
+        to {
+          opacity: $opacity-100;
+        }
+      }
+      img {
+        display: block;
+        width: $full-width;
+        height: $full-height;
+        object-fit: cover;
+        width: $full-width;
+        margin: 0 auto;
+        @include screen-md {
+          width: 80%;
+        }
+        max-width: $containr-max-width;
+        opacity: $opacity-70;
+      }
+    }
+  }
+  .ButtonWrapper {
+    position: absolute;
+    @include display-flex(row, space-between, center, 0);
+    width: $full-width - 10%;
+    max-width: $containr-max-width;
+    margin: 0 auto;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+    z-index: 1;
+    padding: 0 $size-1rem;
+    .Button-Slider {
+      @include display-flex(row, center, center, 0);
+      width: 40px;
+      height: 40px;
+      border-radius: $small-radius;
+      background: $color-primary;
+      color: $color-white-default;
+      font-size: $fs-medium;
+    }
+  }
+  .SiderTabWrapper {
+    position: absolute;
+    @include display-flex(row, center, center, $size-05rem);
+    width: $full-width - 10%;
+    max-width: $containr-max-width;
+    margin: 0 auto;
+    bottom: $size-1rem;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    .SiderTab {
+      width: 30px;
+      height: 10px;
+      border-radius: $small-radius;
+      background: $color-white-default;
+      opacity: $opacity-90;
+      cursor: pointer;
+      &.Active {
+        background: $color-primary;
+      }
+    }
+  }
+}

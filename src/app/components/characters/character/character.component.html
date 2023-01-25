@@ -1,0 +1,53 @@
+<div class="section">
+  <div class="Container">
+    <div class="header">
+      <button [routerLink]="['/characters']">
+        <i class="fa fa-angle-left"></i>
+        <span>back</span>
+      </button>
+      <h1>Character info</h1>
+    </div>
+    <div class="main">
+      <div class="article" *ngIf="Character__Info">
+        <div class="ImgWrapper">
+          <img src="{{ Character__Info.image }}" alt="" />
+        </div>
+        <div class="ContentWrapper">
+          <div class="Section">
+            <h3>{{ Character__Info.name }}</h3>
+          </div>
+          <div class="Section">
+            <div class="StatusWrapper">
+              <div
+                class="StatusDot {{
+                  Character__Info.status == 'Alive'
+                    ? 'alive'
+                    : Character__Info.status == 'Dead'
+                    ? 'dead'
+                    : 'unknown'
+                }}"
+              ></div>
+              <p>
+                {{ Character__Info.status }} - {{ Character__Info.species }}
+              </p>
+            </div>
+          </div>
+          <div class="Section">
+            <span>Last known location:</span>
+            <p>{{ Character__Info.location.name }}</p>
+          </div>
+          <div class="Section">
+            <span>Gender:</span>
+            <p>{{ Character__Info.gender }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="AlterWrapper">
+      <app-card
+        *ngFor="let Alter of Alter__Arr"
+        [Character]="this.Alter"
+      ></app-card>
+    </div>
+  </div>
+</div>

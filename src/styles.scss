@@ -1,0 +1,9 @@
+@import "./assets/scss/Mixin";
+@import "./assets/scss/Reset";
+@import "./assets/scss/Variable";
+// @import "ngx-pagination/dist/ngx-pagination.css";
+.Container {
+  position: relative;
+  max-width: $containr-max-width;
+  margin: 0 auto;
+}

@@ -1,0 +1,31 @@
+<div class="section">
+  <div class="Container">
+    <div class="header">
+      <button [routerLink]="['/episodes']">
+        <i class="fa fa-angle-left"></i>
+        <span>back</span>
+      </button>
+      <h1>Episode info</h1>
+    </div>
+    <div class="main">
+      <div class="article" *ngIf="Episode__Info">
+        <div class="ContentWrapper">
+          <div class="Section">
+            <h3>{{ Episode__Info.name }}</h3>
+          </div>
+          <div class="Section">
+            <span>date:</span>
+            <p>{{ Episode__Info.air_date }}</p>
+          </div>
+          <div class="Section">
+            <span>Episode:</span>
+            <p>{{ Episode__Info.episode }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="Character__Wrapper">
+      <app-card *ngFor="let character of Character__Arr" [Character]="character"></app-card>
+    </div>
+  </div>
+</div>

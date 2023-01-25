@@ -1,0 +1,21 @@
+<header class="Main__Header" [ngClass]="this.HeaderSticky ? 'Sticky' : ''">
+  <div class="Container">
+    <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="Logo">
+      <img src="../../../assets/svg/favicon.svg" alt="" class="logo-1" />
+      <img src="../../../assets/svg/favicon withe.svg" alt="" class="logo-2" />
+    </a>
+
+    <nav>
+      <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <i class="fas fa-house"></i> Home</a>
+      <a routerLink="/characters" routerLinkActive="active"><i class="fas fa-users"></i> Characters</a
+      >
+      <a routerLink="/episodes" routerLinkActive="active"
+        ><i class="fas fa-clapperboard"></i> episodes</a
+      >
+    </nav>
+    <button class="Button-Open__Nav" (click)="Open__Aside()">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+</header>

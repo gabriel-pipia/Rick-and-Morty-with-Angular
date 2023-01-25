@@ -1,0 +1,70 @@
+@import "../../../assets/scss/Mixin";
+@import "../../../assets/scss/Reset";
+@import "../../../assets/scss/Variable";
+section {
+  width: $full-width;
+  .Container {
+    width: 90%;
+    .header {
+      position: relative;
+      padding: $size-2rem 0;
+      width: $full-width;
+      @include display-flex(row, flex-start, center, 0);
+      h1 {
+        font-size: $fs-large-xxl;
+        font-weight: $fw-bold;
+        color: $color-gray-200;
+      }
+    }
+    .main {
+      position: relative;
+      width: $full-width;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
+      grid-gap: $size-1_5rem;
+      grid-auto-flow: row dense;
+      justify-items: center;
+      margin-bottom: $size-2rem;
+      episode-card {
+        width: $full-width;
+        height: $full-height;
+      }
+    }
+    .pagination-controls {
+      @include display-flex(row, center, center, $size-1_5rem);
+      margin: $size-1_5rem auto;
+      .Button-Prev,
+      .Button-Next {
+        @include primary-button( 40px, 40px, (0, 0), (0, 0), $small-radius, $fs-small-xl, $fw-bold, $color-white-default, $color-primary);
+      }
+      .pagination-bullets {
+        @include display-flex(row, space-between, center, $size-08rem);
+        button {
+          position: relative;
+          &::before {
+            content: "";
+            position: absolute;
+            top: $full-height;
+            left: 0;
+            right: 0;
+            width: $full-width;
+            height: $size-02rem;
+            border-radius: $small-radius;
+            background: $color-primary;
+            box-shadow: $shadow-basic;
+            visibility: hidden;
+          }
+          &:hover {
+            color: $color-primary;
+          }
+          &.active {
+            &::before {
+              visibility: visible;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,141 @@
+@import "../../../assets/scss/Mixin";
+@import "../../../assets/scss/Reset";
+@import "../../../assets/scss/Variable";
+section {
+  width: $full-width;
+  .Container {
+    width: 90%;
+    header {
+      position: relative;
+      padding: $size-2rem 0;
+      width: $full-width;
+      @include display-flex(column, flex-start, flex-start, $size-08rem);
+      .Top {
+        width: $full-width;
+        @include display-flex(row, space-between, center, $size-1rem);
+        h1 {
+          font-size: $fs-large-xl;
+          font-weight: $fw-bold;
+          color: $color-gray-200;
+        }
+        button {
+          @include primary-button( 100px, 45px, (0, 0), (0, 0), $small-radius, $fs-small-xl, $fw-bold, $color-white-default, $color-primary);
+        }
+      }
+      .Bottom {
+        width: $full-width;
+        @include display-flex(row, space-between, center, $size-1_5rem);
+        .Input__Wrapper {
+          @include display-flex(row, space-between, center, $size-1_5rem);
+          width: $full-width;
+          height: 50px;
+          border: $size-01rem solid $color-gray-600;
+          border-radius: $small-radius;
+          background: $bg-color-light-dark;
+          font-size: $fs-medium;
+          color: $color-gray-300;
+          .Input {
+            width: $full-width;
+            height: 50px;
+            padding: 0 $size-1rem;
+            background: $color-transparent-default;
+          }
+          i {
+            height: 50px;
+            width: 50px;
+            @include display-flex(row, center, center, 0);
+            pointer-events: none;
+          }
+        }
+        .Select__Wrapper {
+          position: relative;
+          @include display-flex(row, center, center, 0);
+          width: 150px;
+          min-width: 110px;
+          height: 50px;
+          border: $size-01rem solid $color-gray-600;
+          border-radius: $small-radius;
+          background: $bg-color-light-dark;
+          overflow: hidden;
+          select {
+            cursor: pointer;
+            position: absolute;
+            width: $full-width;
+            height: 50px;
+            padding: 0 $size-1rem;
+            background: $bg-color-light-dark;
+            font-size: $fs-medium;
+            color: $color-gray-300;
+            border: none;
+          }
+          i {
+            position: absolute;
+            right: $size-08rem;
+            font-size: $fs-medium;
+            color: $color-gray-300;
+            pointer-events: none;
+          }
+        }
+      }
+    }
+    main {
+      position: relative;
+      width: $full-width;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
+      grid-gap: $size-1_5rem;
+      grid-auto-flow: row dense;
+      justify-items: center;
+      margin-bottom: $size-2rem;
+      app-card {
+        width: $full-width;
+        height: $full-height;
+      }
+    }
+    .Not__Found {
+      position: relative;
+      width: $full-width;
+      margin: $size-1_5rem 0;
+      text-align: center;
+      font-size: $fs-large-xxl;
+      color: $color-white-default;
+      font-weight: $fw-bold;
+    }
+    .pagination-controls {
+      @include display-flex(row, center, center, $size-1_5rem);
+      margin: $size-1_5rem auto;
+      .Button-Prev,
+      .Button-Next {
+        @include primary-button( 40px, 40px, (0, 0), (0, 0), $small-radius, $fs-small-xl, $fw-bold, $color-white-default, $color-primary);
+      }
+      .pagination-bullets {
+        @include display-flex(row, space-between, center, $size-08rem);
+        button {
+          position: relative;
+          &::before {
+            content: "";
+            position: absolute;
+            top: $full-height;
+            left: 0;
+            right: 0;
+            width: $full-width;
+            height: $size-02rem;
+            border-radius: $small-radius;
+            background: $color-primary;
+            box-shadow: $shadow-basic;
+            visibility: hidden;
+          }
+          &:hover {
+            color: $color-primary;
+          }
+          &.active {
+            &::before {
+              visibility: visible;
+            }
+          }
+        }
+      }
+    }
+  }
+}

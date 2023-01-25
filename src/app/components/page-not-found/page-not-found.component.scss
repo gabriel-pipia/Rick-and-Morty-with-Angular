@@ -1,0 +1,29 @@
+@import "../../../assets/scss/Mixin";
+@import "../../../assets/scss/Reset";
+@import "../../../assets/scss/Variable";
+.Wrapper {
+  position: fixed;
+  z-index: $z-index-overlay;
+  inset: 0;
+  background: $bg-color-dark;
+  @include display-flex(column, center, center, $size-1rem);
+  &::after {
+    content: "404";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 150px;
+    z-index: -1;
+    color: $bg-color-light-dark;
+    font-weight: $fw-black;
+  }
+  h1 {
+    font-size: $fs-large-xxl;
+    color: $color-white-default;
+    font-weight: $fw-bold;
+  }
+  a {
+    @include primary-button( auto, 45px, (0 0), ($size-05rem $size-1_5rem), $small-radius, $fs-medium, $fw-bold, $color-white-default, $color-primary);
+  }
+}

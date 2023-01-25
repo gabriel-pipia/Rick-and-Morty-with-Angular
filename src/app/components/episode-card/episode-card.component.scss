@@ -1,0 +1,42 @@
+@import "../../../assets/scss/Mixin";
+@import "../../../assets/scss/Reset";
+@import "../../../assets/scss/Variable";
+article {
+  padding: $size-1rem;
+  position: relative;
+  @include display-flex(column, stretch, stretch, $size-05rem);
+  flex-wrap: wrap;
+  width: auto;
+  background: $bg-color-light-dark;
+  box-shadow: $shadow-strong;
+  border-radius: $big-radius;
+  overflow: hidden;
+  height: $full-height;
+  animation: scale-out 0.3s ease-out forwards;
+  h2 {
+    color: $color-white-default;
+    font-size: $fs-large-xl;
+    font-weight: $fw-bold;
+  }
+  h3 {
+    color: $color-gray-400;
+    font-size: $fs-medium-xl;
+    font-weight: $fw-medium;
+    margin-bottom: $size-1_5rem;
+  }
+  button {
+    margin-top: auto;
+    @include primary-button( auto, 45px, (0, 0), (0, $size-1_5rem), $small-radius, $fs-small-xl, $fw-bold, $color-white-default, $color-primary);
+  }
+}
+
+@keyframes scale-out {
+  from {
+    transform: scale(0);
+    opacity: $opacity-0;
+  }
+  to {
+    transform: scale(1);
+    opacity: $opacity-100;
+  }
+}

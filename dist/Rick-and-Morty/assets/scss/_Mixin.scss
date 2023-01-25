@@ -1,0 +1,84 @@
+$breakPoints: ( "xs": 0, "sm": 480px, "md": 720px, "lg": 960px, "xl": 1200px, );
+@mixin screen-xs {
+  @media screen and (min-width: map-get($breakPoints, "xs")) {
+    @content;
+  }
+}
+
+@mixin screen-sm {
+  @media screen and (min-width: map-get($breakPoints, "sm")) {
+    @content;
+  }
+}
+
+@mixin screen-md {
+  @media screen and (min-width: map-get($breakPoints, "md")) {
+    @content;
+  }
+}
+
+@mixin screen-lg {
+  @media screen and (min-width: map-get($breakPoints, "lg")) {
+    @content;
+  }
+}
+
+@mixin screen-xl {
+  @media screen and (min-width: map-get($breakPoints, "xl")) {
+    @content;
+  }
+}
+
+@mixin breakPoints($value) {
+  @media screen and (min-width: $value) {
+    @content;
+  }
+}
+
+@mixin display-flex($direction: row, $jastify: start, $items: start, $gap: 0) {
+  display: flex;
+  align-items: $items;
+  justify-content: $jastify;
+  flex-direction: $direction;
+  gap: $gap;
+}
+
+@mixin primary-button( $width: auto, $height: auto, $margin: ( 0 0, ), $padding: ( 0 0, ), $radius: $small-radius, $fs: $fs-medium, $fw: $fw-medium, $text: $color-Text, $background: $color-primary) {
+  @include display-flex(row, center, center, 0);
+  width: $width;
+  height: $height;
+  margin: $margin;
+  padding: $padding;
+  font-size: $fs;
+  font-weight: $fw;
+  color: $text;
+  background: $color-primary;
+  border-radius: $radius;
+  transition: $transition;
+  &:hover {
+    opacity: $opacity-90;
+  }
+  &:active {
+    opacity: $opacity-80;
+  }
+}
+
+@mixin button-default {
+  @include display-flex(row, center, center, 0);
+  width: auto;
+  height: auto;
+  margin: inherit;
+  padding: inherit;
+  font-size: $fs-medium;
+  font-weight: $fw-medium;
+  color: $color-white-default;
+  background: $color-primary;
+  border-radius: $radius;
+  transition: $transition;
+  &:hover {
+    opacity: $opacity-90;
+  }
+  &:active {
+    opacity: $opacity-80;
+  }
+}

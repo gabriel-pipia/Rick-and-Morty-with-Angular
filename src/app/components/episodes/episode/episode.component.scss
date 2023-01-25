@@ -1,0 +1,111 @@
+@import "../../../../assets/scss/Mixin";
+@import "../../../../assets/scss/Reset";
+@import "../../../../assets/scss/Variable";
+.section {
+  width: $full-width;
+  min-height: calc($full-height-vh - 66px);
+  .Container {
+    width: 90%;
+    .header {
+      position: relative;
+      padding: $size-1rem 0;
+      width: $full-width;
+      @include display-flex(row, flex-start, center, $size-1rem);
+      button {
+        @include primary-button( auto, 45px, (0 0), ($size-05rem $size-1rem), $small-radius, inherit, $color-white-default, $color-primary);
+        gap: $size-06rem;
+        i {
+          font-size: $fs-medium;
+          color: $color-white-default;
+        }
+        span {
+          font-size: $fs-medium;
+          color: $color-white-default;
+        }
+      }
+      h1 {
+        font-size: $fs-large-xl;
+        font-weight: $fw-bold;
+        color: $color-gray-200;
+      }
+    }
+  }
+  .main {
+    position: relative;
+    width: $full-width;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    .article {
+      position: relative;
+      @include display-flex(column, stretch, stretch, $size-1_5rem);
+      flex-wrap: nowrap;
+      width: $full-width;
+      height: $full-height;
+      transform: scale(0);
+      animation: scale-out 0.3s ease-out forwards;
+      @include breakPoints(550px) {
+        @include display-flex(row, stretch, stretch, $size-2rem);
+      }
+    }
+    @keyframes scale-out {
+      from {
+        transform: scale(0);
+        opacity: $opacity-0;
+      }
+      to {
+        transform: scale(1);
+        opacity: $opacity-100;
+      }
+    }
+    .ContentWrapper {
+      @include display-flex(column, flex-start, stretch, 0);
+      width: $full-width;
+      max-width: $full-width;
+      @include breakPoints(550px) {
+        max-width: 50%;
+      }
+      .Section {
+        @include display-flex(column, flex-start, stretch, $size-03rem);
+        width: $full-width;
+        &:not(:first-child) {
+          margin-bottom: $size-1rem;
+        }
+        h3 {
+          color: $color-white-default;
+          font-size: $fs-large-xxl;
+          font-weight: $fw-bold;
+          width: $full-width;
+        }
+        span {
+          color: $color-gray-500;
+          font-size: $fs-medium;
+          font-weight: $fw-medium;
+        }
+        p {
+          color: $color-gray-200;
+          font-size: $fs-large;
+          font-weight: $fw-medium;
+        }
+      }
+    }
+  }
+  .Character__Wrapper {
+    position: relative;
+    width: $full-width;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: $size-1_5rem;
+    grid-auto-flow: row dense;
+    justify-items: center;
+    margin-top: $size-3rem;
+    padding-top: $size-3rem;
+    margin-bottom: $size-2rem;
+    border-top: 0.2rem solid $bg-color-light-dark;
+    app-card {
+      width: $full-width;
+      height: $full-height;
+    }
+  }
+}

@@ -1,0 +1,97 @@
+@import "../../../assets/scss/Mixin";
+@import "../../../assets/scss/Reset";
+@import "../../../assets/scss/Variable";
+article {
+  position: relative;
+  @include display-flex(column, stretch, stretch, 0);
+  flex-wrap: wrap;
+  width: auto;
+  background: $bg-color-light-dark;
+  box-shadow: $shadow-strong;
+  border-radius: $big-radius;
+  overflow: hidden;
+  height: $full-height;
+  animation: scale-out 0.3s ease-out forwards;
+  .Image__Wrapper {
+    width: $full-width;
+    max-height: 300px;
+    flex: 1;
+    cursor: pointer;
+    overflow: hidden;
+    img {
+      width: $full-width;
+      height: $full-height;
+      object-fit: cover;
+      object-position: center;
+      pointer-events: none;
+      transition: $transition;
+      transform-origin: center;
+    }
+    .ImageLoad {
+      width: $full-width;
+      height: $full-height;
+      background: red;
+    }
+    &:hover {
+      img {
+        filter: opacity(0.8);
+        transform: scale(1.1);
+      }
+    }
+  }
+  .Content__Wrapper {
+    @include display-flex(column, flex-start, stretch, 0);
+    width: $full-width;
+    padding: $size-1rem;
+    .ContentSection {
+      @include display-flex(column, flex-start, stretch, 0);
+      width: $full-width;
+      &:not(:first-child) {
+        margin-bottom: $size-05rem;
+      }
+      h3 {
+        color: $color-white-default;
+        font-size: $fs-large-xl;
+        font-weight: $fw-bold;
+        cursor: pointer;
+        &:hover {
+          color: $color-primary;
+        }
+      }
+      span {
+        @include display-flex(row, flex-start, center, $size-05rem);
+        color: $color-gray-400;
+        font-size: $fs-small;
+        font-weight: $fw-medium;
+        &.status {
+          margin-bottom: $size-1rem;
+          color: $color-gray-300;
+          font-size: $fs-medium;
+        }
+        i {
+          font-size: $fs-small;
+          &.alive {
+            color: $color-green-600;
+          }
+          &.dead {
+            color: $color-red-600;
+          }
+          &.unknown {
+            color: $color-gray-500;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes scale-out {
+  from {
+    transform: scale(0);
+    opacity: $opacity-0;
+  }
+  to {
+    transform: scale(1);
+    opacity: $opacity-100;
+  }
+}

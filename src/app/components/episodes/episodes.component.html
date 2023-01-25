@@ -1,0 +1,38 @@
+<section>
+  <div class="Container">
+    <div class="header">
+      <h1>Rick And Morty Episodes</h1>
+    </div>
+    <div class="main">
+      <episode-card *ngFor="
+          let Episode of Episode__Arr
+            | paginate
+              : {
+                  itemsPerPage: ItemSize,
+                  currentPage: Page,
+                  totalItems: PageCount
+                };
+          let i = index
+        " [Episode]="Episode"></episode-card>
+    </div>
+    <pagination-template #pagination="paginationApi" (pageChange)="PageChange($event)">
+      <div class="pagination-controls">
+        <button class="Button-Prev" [disabled]="pagination.isFirstPage()" (click)="pagination.previous()">
+          <i class="fas fa-angle-left"></i>
+        </button>
+        <span class="pagination-bullets">
+          <button
+            *ngFor="let page of pagination.pages"
+            [class.active]="pagination.getCurrent() === page.value"
+            (click)="pagination.setCurrent(page.value)"
+          >
+            {{ page.label }}
+          </button>
+        </span>
+        <button class="Button-Next" [disabled]="pagination.isLastPage()" (click)="pagination.next()">
+          <i class="fas fa-angle-right"></i>
+        </button>
+      </div>
+    </pagination-template>
+  </div>
+</section>

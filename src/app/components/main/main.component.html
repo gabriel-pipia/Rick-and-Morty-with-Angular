@@ -1,0 +1,28 @@
+<app-slider [Slider__Arr]="Slider__Arr"></app-slider>
+<section>
+  <div class="Container">
+    <header>
+      <div class="Top">
+        <h1>Rick And Morty Characters</h1>
+        <button routerLink="/characters">See All</button>
+      </div>
+      <div class="Bottom">
+        <label for="Search" class="Input__Wrapper">
+          <input
+            type="text"
+            placeholder="Quick Search"
+            id="Search"
+            class="Input"
+            [(ngModel)]="SearchQuery"
+            (input)="SearchCharacter()"
+          />
+          <i class="fa fa-search"></i>
+        </label>
+      </div>
+    </header>
+    <main>
+      <app-card *ngFor="let Character of Duplicate__Character__Arr" [Character]="this.Character"></app-card>
+    </main>
+    <h3 class="Not__Found" *ngIf="this.NotFound">Character Not Found! :(</h3>
+  </div>
+</section>

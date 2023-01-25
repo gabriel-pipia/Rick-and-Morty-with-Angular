@@ -1,0 +1,97 @@
+@import "../../../assets/scss/Mixin";
+@import "../../../assets/scss/Reset";
+@import "../../../assets/scss/_Variable";
+.Main__Header {
+  position: sticky;
+  top: -80px;
+  width: $full-width;
+  background: $bg-color-light-dark;
+  z-index: $z-index-header;
+  transition: 0.5s;
+  &.Sticky {
+    background: $bg-color-body;
+    box-shadow: $shadow-basic;
+    position: sticky;
+    top: 0;
+    .Container {
+      .Logo {
+        img {
+          &.logo-1 {
+            display: block;
+          }
+          &.logo-2 {
+            display: none;
+          }
+        }
+      }
+      nav {
+        a {
+          color: $color-black-default;
+        }
+      }
+    }
+  }
+  .Container {
+    width: $full-width - 10%;
+    @include display-flex(row, space-between, center, $size-1rem);
+    max-width: $containr-max-width;
+    margin: 0 auto;
+    padding: $size-05rem $size-1_5rem;
+    .Logo {
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      img {
+        &.logo-1 {
+          display: none;
+        }
+        &.logo-2 {
+          display: block;
+        }
+      }
+    }
+    nav {
+      @include display-flex(row, space-between, center, $size-2rem);
+      display: none;
+      a {
+        position: relative;
+        color: $color-white-default;
+        font-size: $fs-medium;
+        font-weight: $fw-medium;
+        &::before {
+          content: "";
+          position: absolute;
+          top: $full-height;
+          left: 0;
+          right: 0;
+          width: $full-width;
+          height: $size-02rem;
+          border-radius: $small-radius;
+          background: $color-primary;
+          box-shadow: $shadow-basic;
+          visibility: hidden;
+        }
+        &:hover {
+          color: $color-primary;
+        }
+        &.active {
+          color: $color-primary;
+          &::before {
+            visibility: visible;
+          }
+        }
+      }
+    }
+    .Button-Open__Nav {
+      @include primary-button( 40px, 40px, (0, 0), (0, 0), $small-radius, $fs-small-xl, $fw-bold, $color-white-default, $color-primary);
+    }
+    @include breakPoints(550px) {
+      .Button-Open__Nav {
+        display: none;
+      }
+      nav{
+        display: flex;
+      }
+    }
+  }
+}

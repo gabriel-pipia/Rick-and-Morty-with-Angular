@@ -1,0 +1,17 @@
+<aside [ngClass]="Active__Aside ? 'active' : ''">
+  <div class="Aside__Overlay" (click)="Close__Aside()"></div>
+  <div class="Wrapper">
+    <button class="Button-Close__Nav" (click)="Close__Aside()">
+      <i class="fa fa-times"></i>
+    </button>
+    <nav>
+      <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <i class="fas fa-house"></i> Home</a>
+      <a routerLink="/characters" routerLinkActive="active"><i class="fas fa-users"></i> Characters</a
+      >
+      <a routerLink="/episodes" routerLinkActive="active"
+        ><i class="fas fa-clapperboard"></i> episodes</a
+      >
+    </nav>
+  </div>
+</aside>

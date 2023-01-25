@@ -1,0 +1,62 @@
+<section>
+  <div class="Container">
+    <header>
+      <div class="Top">
+        <h1>All Rick And Morty Characters</h1>
+      </div>
+      <div class="Bottom">
+        <label for="Search" class="Input__Wrapper">
+          <input
+            type="text"
+            placeholder="Search Character"
+            id="Search"
+            class="Input"
+            [(ngModel)]="SearchQuery"
+            (input)="SearchCharacter()"
+          />
+          <i class="fa fa-search"></i>
+        </label>
+        <div class="Select__Wrapper">
+          <select (input)="Sort($event)">
+            <option value="All" selected>All</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+          <i class="fa fa-angle-down"></i>
+        </div>
+      </div>
+    </header>
+    <main>
+      <app-card *ngFor="
+          let Character of Duplicate__Character__Arr
+            | paginate
+              : {
+                  itemsPerPage: ItemSize,
+                  currentPage: Page,
+                  totalItems: PageCount
+                };
+          let i = index
+        " [Character]="this.Character"></app-card>
+    </main>
+    <h3 class="Not__Found" *ngIf="this.NotFound">Character Not Found! :(</h3>
+    <pagination-template #pagination="paginationApi" (pageChange)="PageChange($event)">
+      <div class="pagination-controls">
+        <button class="Button-Prev" [disabled]="pagination.isFirstPage()" (click)="pagination.previous()">
+          <i class="fas fa-angle-left"></i>
+        </button>
+        <span class="pagination-bullets">
+          <button
+            *ngFor="let page of pagination.pages"
+            [class.active]="pagination.getCurrent() === page.value"
+            (click)="pagination.setCurrent(page.value)"
+          >
+            {{ page.label }}
+          </button>
+        </span>
+        <button class="Button-Next" [disabled]="pagination.isLastPage()" (click)="pagination.next()">
+          <i class="fas fa-angle-right"></i>
+        </button>
+      </div>
+    </pagination-template>
+  </div>
+</section>

@@ -1,0 +1,34 @@
+<article>
+  <div class="Image__Wrapper" [routerLink]="['/characters/character', this.Character.id]">
+    <img src="{{ Character.image }}" alt="" />
+  </div>
+  <div class="Content__Wrapper">
+    <div class="ContentSection">
+      <h3 [routerLink]="['/characters/character', this.Character.id]">
+        {{ Character.name }}
+      </h3>
+    </div>
+    <div class="ContentSection">
+      <span class="status"><i
+          class="fas fa-dot-circle"
+          ngClass="{{
+            Character.status == 'Alive'
+              ? 'alive'
+              : Character.status == 'Dead'
+              ? 'dead'
+              : 'unknown'
+          }}"
+        ></i>
+        {{ Character.status }} - {{ Character.species }}</span
+      >
+    </div>
+    <div class="ContentSection">
+      <span>Last known location:</span>
+      <p>{{ Character.location.name }}</p>
+    </div>
+    <div class="ContentSection">
+      <span>Gender:</span>
+      <p>{{ Character.gender }}</p>
+    </div>
+  </div>
+</article>
