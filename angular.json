@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Rick-and-Morty:build:production"
+              "buildTarget": "Rick-and-Morty:build:production"
             },
             "development": {
-              "browserTarget": "Rick-and-Morty:build:development"
+              "buildTarget": "Rick-and-Morty:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -75,7 +75,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Rick-and-Morty:build"
+            "buildTarget": "Rick-and-Morty:build"
           }
         },
         "test": {
