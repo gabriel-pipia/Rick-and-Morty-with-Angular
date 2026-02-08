@@ -1,42 +1,76 @@
-<article class="Character-Card">
-  <div class="Card-Image" [routerLink]="['/characters/character', Character.id]">
+<article class="Character-Card" [routerLink]="['/characters/character', Character.id]">
+  <!-- Image Section -->
+  <div class="Card-Image">
     <img [src]="Character.image" [alt]="Character.name" loading="lazy" />
     
-    <!-- Status Badge Overlay -->
+    <!-- Gradient Overlay -->
+    <div class="Image-Overlay"></div>
+    
+    <!-- Status Badge -->
     <div class="Status-Badge" [ngClass]="{
       'dead': Character.status === 'Dead',
       'alive': Character.status === 'Alive',
-      'unknown': Character.status === 'Unknown'
+      'unknown': Character.status === 'unknown'
     }">
-      <span class="status-icon"></span>
+      <span class="Status-Dot"></span>
       {{ Character.status }}
+    </div>
+
+    <!-- Episodes Count Badge -->
+    <div class="Episodes-Badge" *ngIf="Character.episode">
+      <i class="fas fa-film"></i>
+      {{ Character.episode.length }}
     </div>
   </div>
 
+  <!-- Content Section -->
   <div class="Card-Content">
-    <div class="Section-Header">
-      <h2 [routerLink]="['/characters/character', Character.id]" class="Character-Name">
-        {{ Character.name }}
-      </h2>
-      <span class="Species-Type">{{ Character.species }} <span *ngIf="Character.type" class="text-muted">({{Character.type}})</span></span>
+    <!-- Name & Species -->
+    <div class="Card-Header">
+      <h3 class="Character-Name">{{ Character.name }}</h3>
+      <div class="Species-Info">
+        <i class="fas fa-dna"></i>
+        <span>{{ Character.species }}</span>
+        <span class="Type-Tag" *ngIf="Character.type">{{ Character.type }}</span>
+      </div>
     </div>
 
-    <div class="Section-Info">
-      <span class="Label">Last known location:</span>
-      <a class="Info-Link">{{ Character.location.name }}</a>
+    <!-- Info Items -->
+    <div class="Card-Info">
+      <div class="Info-Item">
+        <i class="fas fa-map-marker-alt"></i>
+        <div class="Info-Text">
+          <span class="Label">Location</span>
+          <span class="Value">{{ Character.location.name }}</span>
+        </div>
+      </div>
+      
+      <div class="Info-Item">
+        <i class="fas fa-globe"></i>
+        <div class="Info-Text">
+          <span class="Label">Origin</span>
+          <span class="Value">{{ Character.origin.name }}</span>
+        </div>
+      </div>
     </div>
 
-    <div class="Section-Info">
-      <span class="Label">First seen in:</span>
-      <!-- Assuming we might fetch episode name later, for now just static or placeholder if not available. 
-           The API returns a URL, so we might need a pipe or separate call. 
-           But let's stick to what we have in the input object for now. -->
-      <a class="Info-Link">{{ Character.origin.name }}</a>
-    </div>
-
-    <div class="Section-Info Gender-Info">
-      <span class="Label">Gender:</span>
-      <span class="Info-Value">{{ Character.gender }}</span>
+    <!-- Footer -->
+    <div class="Card-Footer">
+      <span class="Gender-Badge" [ngClass]="{
+        'male': Character.gender === 'Male',
+        'female': Character.gender === 'Female'
+      }">
+        <i class="fas" [ngClass]="{
+          'fa-mars': Character.gender === 'Male',
+          'fa-venus': Character.gender === 'Female',
+          'fa-genderless': Character.gender === 'Genderless' || Character.gender === 'unknown'
+        }"></i>
+        {{ Character.gender }}
+      </span>
+      <span class="View-Link">
+        View Details
+        <i class="fas fa-arrow-right"></i>
+      </span>
     </div>
   </div>
 </article>
