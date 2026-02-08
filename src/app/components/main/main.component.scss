@@ -23,6 +23,7 @@ section {
           font-size: $fs-large-xxl;
           font-weight: $fw-black;
           background: linear-gradient(to right, $color-secondary, $color-primary);
+          background-clip: text;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           letter-spacing: -1px;

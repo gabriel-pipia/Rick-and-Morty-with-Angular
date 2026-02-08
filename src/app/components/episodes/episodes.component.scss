@@ -18,6 +18,7 @@ section {
         color: $color-white-default;
         text-align: center;
         background: linear-gradient(to right, $color-primary, $color-secondary);
+        background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin-bottom: $size-1rem;
