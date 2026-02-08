@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-slider',
@@ -7,37 +7,50 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
     encapsulation: ViewEncapsulation.None,
     standalone: false
 })
-export class SliderComponent {
+export class SliderComponent implements OnInit {
   @Input() Slider__Arr: any[] = [];
-  SliderIndex: any = 0;
-
-  SliderTab(index: any) { this.Slide(index) }
+  SliderIndex: number = 0;
+  private interval: any;
 
   ngOnInit(): void {
-
+    // Auto-advance slider
+    this.startAutoSlide();
   }
 
-  PrevSlide(index: any) {
-    this.SliderIndex = this.SliderIndex += index;
+  startAutoSlide() {
+    this.interval = setInterval(() => {
+      this.NextSlide(1);
+    }, 5000);
+  }
+
+  stopAutoSlide() {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+  }
+
+  SliderTab(index: number) {
+    this.stopAutoSlide();
+    this.SliderIndex = index;
+    // Restart auto slide after interaction
+    this.startAutoSlide();
+  }
+
+  PrevSlide(step: number) {
+    this.stopAutoSlide();
+    this.SliderIndex += step;
     if (this.SliderIndex < 0) {
       this.SliderIndex = this.Slider__Arr.length - 1;
     }
-    this.Slide(this.SliderIndex)
+    this.startAutoSlide();
   }
-  NextSlide(index: any) {
-    this.SliderIndex = this.SliderIndex += index;
-    if (this.SliderIndex > this.Slider__Arr.length - 1) {
+
+  NextSlide(step: number) {
+    this.stopAutoSlide();
+    this.SliderIndex += step;
+    if (this.SliderIndex >= this.Slider__Arr.length) {
       this.SliderIndex = 0;
     }
-    this.Slide(this.SliderIndex)
-  }
-  Slide(index: any) {
-    this.SliderIndex = index;
-    const Slide = document.querySelectorAll(".Slide");
-    const SiderTab = document.querySelectorAll(".SiderTab");
-    Slide.forEach(slide => slide.classList.remove('Active'));
-    SiderTab.forEach(tab => tab.classList.remove('Active'));
-    SiderTab[this.SliderIndex].classList.add('Active');
-    Slide[this.SliderIndex].classList.add('Active');
+    this.startAutoSlide();
   }
 }

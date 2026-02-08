@@ -1,24 +1,54 @@
-<div class="SliderContainer" *ngIf="this.Slider__Arr.length > 2">
+<div class="SliderContainer" *ngIf="Slider__Arr.length > 0">
   <div class="SliderWrapper">
-    <div class="Slide" [ngClass]="this.i == 0 ? 'Active' : ''" *ngFor="let Slider of this.Slider__Arr; let i = index">
-      <img [routerLink]="['/characters/character/', this.Slider.id]" src="{{ this.Slider.image }}" alt="" />
-      <div class="SliderCaption">
-        <h1>
-          {{ this.Slider.name }}
-        </h1>
-        <p>{{ this.Slider.location.name }}</p>
+    <div 
+      class="Slide" 
+      *ngFor="let slide of Slider__Arr; let i = index"
+      [class.Active]="i === SliderIndex">
+      
+      <div class="Slide-Background">
+        <img [src]="slide.image" alt="Background" class="blur-bg" loading="lazy" />
+        <div class="overlay"></div>
       </div>
+
+      <div class="Slide-Content">
+        <div class="Image-Container" [routerLink]="['/characters/character/', slide.id]">
+          <img [src]="slide.image" [alt]="slide.name" loading="lazy" />
+        </div>
+        
+        <div class="SliderCaption">
+          <span class="Featured-Label">Featured Character</span>
+          <h1>{{ slide.name }}</h1>
+          <div class="Info-Badges">
+             <span class="Badge location"><i class="fas fa-map-marker-alt"></i> {{ slide.location.name }}</span>
+             <span class="Badge status" [ngClass]="{
+               'alive': slide.status === 'Alive',
+               'dead': slide.status === 'Dead',
+               'unknown': slide.status === 'Unknown'
+             }">{{ slide.status }}</span>
+          </div>
+          <button [routerLink]="['/characters/character/', slide.id]" class="View-More">View Details</button>
+        </div>
+      </div>
+
     </div>
   </div>
+
   <div class="SiderTabWrapper">
-    <span class="SiderTab" [ngClass]="this.i == 0 ? 'Active' : ''" *ngFor="let Slider of this.Slider__Arr; let i = index" tabIndex="{{ this.i }} " (click)="SliderTab(this.i)"></span>
-  </div>
-  <div class="ButtonWrapper">
-    <button class="Button-Slider" (click)="PrevSlide(-1)">
-      <i class="fas fa-angle-left"></i>
+    <button 
+      class="SiderTab" 
+      *ngFor="let slide of Slider__Arr; let i = index" 
+      [class.Active]="i === SliderIndex"
+      (click)="SliderTab(i)"
+      aria-label="Go to slide">
     </button>
-    <button class="Button-Slider" (click)="NextSlide(1)">
-      <i class="fas fa-angle-right"></i>
+  </div>
+
+  <div class="ButtonWrapper">
+    <button class="Button-Slider prev" (click)="PrevSlide(-1)">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="Button-Slider next" (click)="NextSlide(1)">
+      <i class="fas fa-chevron-right"></i>
     </button>
   </div>
 </div>

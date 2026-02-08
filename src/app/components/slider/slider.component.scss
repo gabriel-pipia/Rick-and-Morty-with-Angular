@@ -1,112 +1,269 @@
 @import "../../../assets/scss/Mixin";
-@import "../../../assets/scss/Reset";
 @import "../../../assets/scss/Variable";
+
 .SliderContainer {
   position: relative;
-  width: $full-width;
-  height: $full-height-vh - 20vh;
-  -webkit-user-select: none;
+  width: 100%;
+  height: min(70vh, 600px);
+  min-height: 400px;
+  overflow: hidden;
   user-select: none;
-  max-height: 400px;
   background: $bg-color-dark;
-  @include screen-md {
-    max-height: 650px;
-  }
+
   .SliderWrapper {
-    width: $full-width;
-    height: $full-height;
-    text-align: center;
-    font-size: $fs-medium;
-    .SliderCaption {
-      @include display-flex(column, center, center, $size-1rem);
-      position: absolute;
-      bottom: $size-3rem;
-      left: 50%;
-      transform: translateX(-50%);
-      color: $color-white-default;
-      h1 {
-        font-size: clamp($fs-large, $fs-large-xl, $fs-large-xxl);
-        font-weight: $fw-bold;
-        color: inherit;
-      }
-      p {
-        font-size: $fs-medium;
-        font-weight: $fw-medium;
-      }
-    }
+    width: 100%;
+    height: 100%;
+    position: relative;
+
     .Slide {
-      display: none;
-      width: $full-width;
-      height: $full-height;
-      opacity: $opacity-0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.8s ease-in-out, visibility 0.8s;
+      z-index: 1;
+
       &.Active {
-        display: block !important;
-        animation: fede-in 0.5s ease-in forwards;
+        opacity: 1;
+        visibility: visible;
+        z-index: 2;
+
+        .Slide-Content {
+          .Image-Container img {
+            transform: scale(1);
+            opacity: 1;
+            filter: blur(0);
+          }
+          
+          .SliderCaption {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
       }
-      @keyframes fede-in {
-        from {
-          opacity: $opacity-0;
+
+      .Slide-Background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        
+        .blur-bg {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          filter: blur(20px) brightness(0.4);
+          transform: scale(1.1);
         }
-        to {
-          opacity: $opacity-100;
+
+        .overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(to right, rgba(11, 14, 17, 0.9) 0%, rgba(11, 14, 17, 0.7) 50%, rgba(11, 14, 17, 0.4) 100%);
         }
       }
-      img {
-        display: block;
-        width: $full-width;
-        height: $full-height;
-        object-fit: cover;
-        width: $full-width;
-        margin: 0 auto;
-        @include screen-md {
-          width: 80%;
-        }
+
+      .Slide-Content {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
         max-width: $containr-max-width;
-        opacity: $opacity-70;
+        margin: 0 auto;
+        padding: 0 $size-1rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: $size-3rem;
+
+        @include breakPoints(768px) {
+          flex-direction: column-reverse;
+          justify-content: center;
+          gap: $size-1_5rem;
+          text-align: center;
+        }
+
+        .Image-Container {
+          flex-shrink: 0;
+          width: 300px;
+          height: 300px;
+          border-radius: $big-radius;
+          overflow: hidden;
+          box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+          cursor: pointer;
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          transform: perspective(1000px) rotateY(5deg);
+          transition: transform 0.3s ease;
+
+          @include breakPoints(768px) {
+            width: 200px;
+            height: 200px;
+            transform: none;
+          }
+
+          &:hover {
+            transform: scale(1.05) rotateY(0);
+            border-color: $color-primary;
+          }
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.1);
+            opacity: 0;
+            filter: blur(10px);
+            transition: all 1s ease 0.2s;
+          }
+        }
+
+        .SliderCaption {
+          flex: 1;
+          color: $color-white-default;
+          transform: translateY(30px);
+          opacity: 0;
+          transition: all 0.8s ease 0.3s;
+
+          .Featured-Label {
+            font-size: $fs-medium;
+            color: $color-secondary;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: $fw-bold;
+            margin-bottom: $size-05rem;
+            display: block;
+          }
+
+          h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: $fw-black;
+            line-height: 1.1;
+            margin-bottom: $size-1_5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            
+            @include breakPoints(768px) {
+              margin-bottom: $size-1rem;
+            }
+          }
+          
+          .Info-Badges {
+            display: flex;
+            gap: $size-1rem;
+            margin-bottom: $size-2rem;
+            flex-wrap: wrap;
+
+            @include breakPoints(768px) {
+              justify-content: center;
+              margin-bottom: $size-1_5rem;
+            }
+
+            .Badge {
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+              padding: 0.5rem 1rem;
+              background: rgba(255, 255, 255, 0.1);
+              backdrop-filter: blur(5px);
+              border-radius: $pill-radius;
+              font-weight: $fw-medium;
+              font-size: $fs-medium;
+              border: 1px solid rgba(255,255,255,0.1);
+
+              &.location {
+                color: $color-blue-300;
+              }
+              
+              &.status {
+                &.alive { color: $color-alive; border-color: rgba($color-alive, 0.3); }
+                &.dead { color: $color-dead; border-color: rgba($color-dead, 0.3); }
+                &.unknown { color: $color-unknown; }
+              }
+            }
+          }
+
+          .View-More {
+            @include primary-button(150px, 45px, 0, 0, $pill-radius, $fs-medium, $fw-bold, $color-black-default, $color-primary);
+            box-shadow: 0 0 20px rgba(151, 206, 76, 0.4);
+            
+            &:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 0 30px rgba(151, 206, 76, 0.6);
+            }
+          }
+        }
       }
     }
   }
+
   .ButtonWrapper {
     position: absolute;
-    @include display-flex(row, space-between, center, 0);
-    width: $full-width - 10%;
-    max-width: $containr-max-width;
-    margin: 0 auto;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 0;
-    right: 0;
-    z-index: 1;
-    padding: 0 $size-1rem;
+    bottom: $size-2rem; // Move to bottom right or left
+    right: 5%;
+    display: flex;
+    gap: $size-1rem;
+    z-index: 10;
+    
+    @include breakPoints(768px) {
+      display: none; // Hide on mobile, use swipe (not implemented) or just reliance on auto/dots
+    }
+
     .Button-Slider {
-      @include display-flex(row, center, center, 0);
-      width: 40px;
-      height: 40px;
-      border-radius: $small-radius;
-      background: $color-primary;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       color: $color-white-default;
-      font-size: $fs-medium;
+      font-size: $fs-large;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: $color-primary;
+        color: $color-black-default;
+        transform: scale(1.1);
+      }
     }
   }
+
   .SiderTabWrapper {
     position: absolute;
-    @include display-flex(row, center, center, $size-05rem);
-    width: $full-width - 10%;
-    max-width: $containr-max-width;
-    margin: 0 auto;
-    bottom: $size-1rem;
-    left: 0;
-    right: 0;
-    z-index: 1;
+    bottom: $size-2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: $size-1rem;
+    z-index: 10;
+
     .SiderTab {
-      width: 30px;
-      height: 10px;
-      border-radius: $small-radius;
-      background: $color-white-default;
-      opacity: $opacity-90;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      border: none;
       cursor: pointer;
+      transition: all 0.3s ease;
+
       &.Active {
         background: $color-primary;
+        transform: scale(1.2);
+        box-shadow: 0 0 10px $color-primary;
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.8);
       }
     }
   }
