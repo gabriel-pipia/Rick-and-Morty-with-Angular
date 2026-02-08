@@ -1,34 +1,42 @@
-<article>
-  <div class="Image__Wrapper" [routerLink]="['/characters/character', this.Character.id]">
-    <img src="{{ Character.image }}" alt="" />
+<article class="Character-Card">
+  <div class="Card-Image" [routerLink]="['/characters/character', Character.id]">
+    <img [src]="Character.image" [alt]="Character.name" loading="lazy" />
+    
+    <!-- Status Badge Overlay -->
+    <div class="Status-Badge" [ngClass]="{
+      'dead': Character.status === 'Dead',
+      'alive': Character.status === 'Alive',
+      'unknown': Character.status === 'Unknown'
+    }">
+      <span class="status-icon"></span>
+      {{ Character.status }}
+    </div>
   </div>
-  <div class="Content__Wrapper">
-    <div class="ContentSection">
-      <h3 [routerLink]="['/characters/character', this.Character.id]">
+
+  <div class="Card-Content">
+    <div class="Section-Header">
+      <h2 [routerLink]="['/characters/character', Character.id]" class="Character-Name">
         {{ Character.name }}
-      </h3>
+      </h2>
+      <span class="Species-Type">{{ Character.species }} <span *ngIf="Character.type" class="text-muted">({{Character.type}})</span></span>
     </div>
-    <div class="ContentSection">
-      <span class="status"><i
-          class="fas fa-dot-circle"
-          ngClass="{{
-            Character.status == 'Alive'
-              ? 'alive'
-              : Character.status == 'Dead'
-              ? 'dead'
-              : 'unknown'
-          }}"
-        ></i>
-        {{ Character.status }} - {{ Character.species }}</span
-      >
+
+    <div class="Section-Info">
+      <span class="Label">Last known location:</span>
+      <a class="Info-Link">{{ Character.location.name }}</a>
     </div>
-    <div class="ContentSection">
-      <span>Last known location:</span>
-      <p>{{ Character.location.name }}</p>
+
+    <div class="Section-Info">
+      <span class="Label">First seen in:</span>
+      <!-- Assuming we might fetch episode name later, for now just static or placeholder if not available. 
+           The API returns a URL, so we might need a pipe or separate call. 
+           But let's stick to what we have in the input object for now. -->
+      <a class="Info-Link">{{ Character.origin.name }}</a>
     </div>
-    <div class="ContentSection">
-      <span>Gender:</span>
-      <p>{{ Character.gender }}</p>
+
+    <div class="Section-Info Gender-Info">
+      <span class="Label">Gender:</span>
+      <span class="Info-Value">{{ Character.gender }}</span>
     </div>
   </div>
 </article>

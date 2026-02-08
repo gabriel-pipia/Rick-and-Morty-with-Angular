@@ -1,9 +1,53 @@
 @import "./assets/scss/Mixin";
 @import "./assets/scss/Reset";
 @import "./assets/scss/Variable";
-// @import "ngx-pagination/dist/ngx-pagination.css";
+
+// Global Font
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap');
+
+html, body {
+  background-color: $bg-color-body;
+  color: $color-text;
+  font-family: $ff;
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+// Custom Scrollbar
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: $bg-color-body;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $color-secondary;
+  border-radius: $pill-radius;
+  &:hover {
+    background: $color-primary;
+  }
+}
+
 .Container {
   position: relative;
   max-width: $containr-max-width;
   margin: 0 auto;
+  padding: 0 $size-1rem;
+}
+
+// Global Utilities
+.text-gradient {
+  background: linear-gradient(to right, $color-primary, $color-secondary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glass-panel {
+  background: rgba(32, 35, 41, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }

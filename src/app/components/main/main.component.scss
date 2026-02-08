@@ -1,141 +1,115 @@
 @import "../../../assets/scss/Mixin";
-@import "../../../assets/scss/Reset";
 @import "../../../assets/scss/Variable";
+
 section {
-  width: $full-width;
+  width: 100%;
+  padding-bottom: $size-2rem;
+
   .Container {
-    width: 90%;
     header {
-      position: relative;
       padding: $size-2rem 0;
-      width: $full-width;
-      @include display-flex(column, flex-start, flex-start, $size-08rem);
+      display: flex;
+      flex-direction: column;
+      gap: $size-1_5rem;
+
       .Top {
-        width: $full-width;
-        @include display-flex(row, space-between, center, $size-1rem);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: $size-1rem;
+
         h1 {
-          font-size: $fs-large-xl;
+          font-size: $fs-large-xxl;
+          font-weight: $fw-black;
+          background: linear-gradient(to right, $color-secondary, $color-primary);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          letter-spacing: -1px;
+        }
+
+        button {
+          padding: 0.75rem 1.5rem;
+          background: transparent;
+          border: 1px solid $color-primary;
+          color: $color-primary;
+          border-radius: $pill-radius;
           font-weight: $fw-bold;
-          color: $color-gray-200;
-        }
-        button {
-          @include primary-button( 100px, 45px, (0, 0), (0, 0), $small-radius, $fs-small-xl, $fw-bold, $color-white-default, $color-primary);
-        }
-      }
-      .Bottom {
-        width: $full-width;
-        @include display-flex(row, space-between, center, $size-1_5rem);
-        .Input__Wrapper {
-          @include display-flex(row, space-between, center, $size-1_5rem);
-          width: $full-width;
-          height: 50px;
-          border: $size-01rem solid $color-gray-600;
-          border-radius: $small-radius;
-          background: $bg-color-light-dark;
           font-size: $fs-medium;
-          color: $color-gray-300;
-          .Input {
-            width: $full-width;
-            height: 50px;
-            padding: 0 $size-1rem;
-            background: $color-transparent-default;
-          }
-          i {
-            height: 50px;
-            width: 50px;
-            @include display-flex(row, center, center, 0);
-            pointer-events: none;
-          }
-        }
-        .Select__Wrapper {
-          position: relative;
-          @include display-flex(row, center, center, 0);
-          width: 150px;
-          min-width: 110px;
-          height: 50px;
-          border: $size-01rem solid $color-gray-600;
-          border-radius: $small-radius;
-          background: $bg-color-light-dark;
-          overflow: hidden;
-          select {
-            cursor: pointer;
-            position: absolute;
-            width: $full-width;
-            height: 50px;
-            padding: 0 $size-1rem;
-            background: $bg-color-light-dark;
-            font-size: $fs-medium;
-            color: $color-gray-300;
-            border: none;
-          }
-          i {
-            position: absolute;
-            right: $size-08rem;
-            font-size: $fs-medium;
-            color: $color-gray-300;
-            pointer-events: none;
-          }
-        }
-      }
-    }
-    main {
-      position: relative;
-      width: $full-width;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
-      grid-gap: $size-1_5rem;
-      grid-auto-flow: row dense;
-      justify-items: center;
-      margin-bottom: $size-2rem;
-      app-card {
-        width: $full-width;
-        height: $full-height;
-      }
-    }
-    .Not__Found {
-      position: relative;
-      width: $full-width;
-      margin: $size-1_5rem 0;
-      text-align: center;
-      font-size: $fs-large-xxl;
-      color: $color-white-default;
-      font-weight: $fw-bold;
-    }
-    .pagination-controls {
-      @include display-flex(row, center, center, $size-1_5rem);
-      margin: $size-1_5rem auto;
-      .Button-Prev,
-      .Button-Next {
-        @include primary-button( 40px, 40px, (0, 0), (0, 0), $small-radius, $fs-small-xl, $fw-bold, $color-white-default, $color-primary);
-      }
-      .pagination-bullets {
-        @include display-flex(row, space-between, center, $size-08rem);
-        button {
-          position: relative;
-          &::before {
-            content: "";
-            position: absolute;
-            top: $full-height;
-            left: 0;
-            right: 0;
-            width: $full-width;
-            height: $size-02rem;
-            border-radius: $small-radius;
-            background: $color-primary;
-            box-shadow: $shadow-basic;
-            visibility: hidden;
-          }
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+
           &:hover {
-            color: $color-primary;
+            background: $color-primary;
+            color: $color-black-default;
+            box-shadow: 0 0 15px rgba(151, 206, 76, 0.4);
           }
-          &.active {
-            &::before {
-              visibility: visible;
+        }
+      }
+
+      .Bottom {
+        .Input__Wrapper {
+          position: relative;
+          width: 100%;
+          max-width: 600px;
+          height: 55px;
+          border-radius: $big-radius;
+          background: rgba(32, 35, 41, 0.6);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          display: flex;
+          align-items: center;
+          padding: 0 $size-1_5rem;
+          transition: $transition;
+          backdrop-filter: blur(10px);
+
+          &:focus-within {
+            border-color: $color-secondary;
+            box-shadow: 0 0 15px rgba(0, 176, 200, 0.2);
+            transform: translateY(-2px);
+          }
+
+          .Input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: $color-white-default;
+            font-size: $fs-medium;
+            font-family: $ff;
+            height: 100%;
+
+            &::placeholder {
+              color: rgba(255, 255, 255, 0.3);
+            }
+
+            &:focus {
+              outline: none;
             }
           }
+
+          i {
+            color: $color-secondary;
+            font-size: $fs-large;
+          }
         }
       }
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: $size-2rem;
+      padding: $size-1rem 0;
+    }
+
+    .Not__Found {
+      width: 100%;
+      text-align: center;
+      padding: $size-3rem 0;
+      font-size: $fs-large-xl;
+      color: $color-text-muted;
+      font-weight: $fw-medium;
     }
   }
 }

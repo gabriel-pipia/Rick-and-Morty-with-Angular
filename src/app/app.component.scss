@@ -1,0 +1,30 @@
+@import "../assets/scss/Variable";
+
+.App-Background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background: radial-gradient(circle at center, #1b1e23 0%, #0b0e11 100%);
+  background-size: cover;
+  pointer-events: none;
+  
+  // Optional: Add a subtle grain or star effect later
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    // Using a simple CSS radial gradient to mimic a distant galaxy glow
+    background: radial-gradient(ellipse at bottom right, rgba(0, 176, 200, 0.1), transparent 50%),
+                radial-gradient(ellipse at top left, rgba(151, 206, 76, 0.05), transparent 50%);
+  }
+}
+
+.App-Content {
+  min-height: calc(100vh - 80px); // Adjust based on header height
+  position: relative;
+  z-index: 1;
+}
