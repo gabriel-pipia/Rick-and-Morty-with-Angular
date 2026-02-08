@@ -1,84 +1,113 @@
-$breakPoints: ( "xs": 0, "sm": 480px, "md": 720px, "lg": 960px, "xl": 1200px, );
-@mixin screen-xs {
-  @media screen and (min-width: map-get($breakPoints, "xs")) {
-    @content;
+@import "./Variable";
+
+// Breakpoints
+$breakpoints: (
+  "xs": 0,
+  "sm": 576px,
+  "md": 768px,
+  "lg": 992px,
+  "xl": 1200px,
+  "xxl": 1400px
+);
+
+// Media Query Mixin
+@mixin breakPoints($size) {
+  @if map-has-key($breakpoints, $size) {
+    @media screen and (min-width: map-get($breakpoints, $size)) {
+      @content;
+    }
+  } @else {
+    @media screen and (min-width: $size) {
+      @content;
+    }
   }
 }
 
-@mixin screen-sm {
-  @media screen and (min-width: map-get($breakPoints, "sm")) {
-    @content;
-  }
-}
+// Mobile First Media Queries (Pre-defined)
+@mixin screen-sm { @include breakPoints("sm") { @content; } }
+@mixin screen-md { @include breakPoints("md") { @content; } }
+@mixin screen-lg { @include breakPoints("lg") { @content; } }
+@mixin screen-xl { @include breakPoints("xl") { @content; } }
 
-@mixin screen-md {
-  @media screen and (min-width: map-get($breakPoints, "md")) {
-    @content;
-  }
-}
-
-@mixin screen-lg {
-  @media screen and (min-width: map-get($breakPoints, "lg")) {
-    @content;
-  }
-}
-
-@mixin screen-xl {
-  @media screen and (min-width: map-get($breakPoints, "xl")) {
-    @content;
-  }
-}
-
-@mixin breakPoints($value) {
-  @media screen and (min-width: $value) {
-    @content;
-  }
-}
-
-@mixin display-flex($direction: row, $jastify: start, $items: start, $gap: 0) {
+// Flexbox Mixin
+@mixin display-flex($direction: row, $justify: flex-start, $align: stretch, $gap: 0) {
   display: flex;
-  align-items: $items;
-  justify-content: $jastify;
   flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
   gap: $gap;
 }
 
-@mixin primary-button( $width: auto, $height: auto, $margin: ( 0 0, ), $padding: ( 0 0, ), $radius: $small-radius, $fs: $fs-medium, $fw: $fw-medium, $text: $color-Text, $background: $color-primary) {
-  @include display-flex(row, center, center, 0);
+// Grid Mixin
+@mixin display-grid($columns: 1fr, $rows: auto, $gap: 0) {
+  display: grid;
+  grid-template-columns: $columns;
+  grid-template-rows: $rows;
+  gap: $gap;
+}
+
+// Glassmorphism Mixin
+@mixin glass($opacity: 0.1, $blur: 10px) {
+  background: rgba(255, 255, 255, $opacity);
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+// Primary Button Mixin
+@mixin primary-button(
+  $width: auto, 
+  $height: auto, 
+  $margin: 0, 
+  $padding: 0.5rem 1rem, 
+  $radius: $small-radius, 
+  $fs: $fs-medium, 
+  $fw: $fw-bold, 
+  $text-color: $color-black-default, 
+  $bg-color: $color-primary
+) {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   width: $width;
   height: $height;
   margin: $margin;
   padding: $padding;
   font-size: $fs;
   font-weight: $fw;
-  color: $text;
-  background: $color-primary;
+  color: $text-color;
+  background: $bg-color;
   border-radius: $radius;
-  transition: $transition;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  
   &:hover {
-    opacity: $opacity-90;
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba($bg-color, 0.4);
   }
+  
   &:active {
-    opacity: $opacity-80;
+    transform: translateY(0);
+    filter: brightness(0.95);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
   }
 }
 
-@mixin button-default {
-  @include display-flex(row, center, center, 0);
-  width: auto;
-  height: auto;
-  margin: inherit;
-  padding: inherit;
-  font-size: $fs-medium;
-  font-weight: $fw-medium;
-  color: $color-white-default;
-  background: $color-primary;
-  border-radius: $radius;
-  transition: $transition;
-  &:hover {
-    opacity: $opacity-90;
-  }
-  &:active {
-    opacity: $opacity-80;
-  }
+// Text Gradient
+@mixin text-gradient($start-color: $color-primary, $end-color: $color-secondary) {
+  background: linear-gradient(to right, $start-color, $end-color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
