@@ -2,7 +2,7 @@
 
 A modern, elegant Angular application that consumes the [Rick and Morty API](https://rickandmortyapi.com/documentation) to browse characters, episodes, and explore the multiverse. Built with a premium dark theme, glassmorphism effects, and smooth animations.
 
-![Rick and Morty App](./screenshot.png)
+![Rick and Morty App](./src/assets/images/Screenshot.jpeg)
 
 ## ✨ Features
 
