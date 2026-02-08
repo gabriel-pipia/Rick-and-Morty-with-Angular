@@ -14,6 +14,15 @@ html, body {
   min-height: 100vh;
 }
 
+// Main content wrapper - add padding for fixed header
+.App-Content {
+  padding-top: 76px; // Header height (60px) + padding (16px)
+
+  @media screen and (min-width: 768px) {
+    padding-top: 86px; // Header height (70px) + padding (16px)
+  }
+}
+
 // Custom Scrollbar
 ::-webkit-scrollbar {
   width: 10px;
@@ -41,6 +50,7 @@ html, body {
 // Global Utilities
 .text-gradient {
   background: linear-gradient(to right, $color-primary, $color-secondary);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
