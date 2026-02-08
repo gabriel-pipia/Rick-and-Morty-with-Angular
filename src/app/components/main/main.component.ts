@@ -3,10 +3,11 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-main',
+    templateUrl: './main.component.html',
+    styleUrls: ['./main.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class MainComponent {
   constructor(private DataShare: DataShareService, private Http: HttpClient) { }

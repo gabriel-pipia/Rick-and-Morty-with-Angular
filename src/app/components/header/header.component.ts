@@ -2,10 +2,11 @@ import { Component, HostListener, ViewEncapsulation } from '@angular/core';
 import { DataShareService } from 'src/app/services/data-share.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class HeaderComponent {
   constructor(private Aside__Emitter: DataShareService) { }

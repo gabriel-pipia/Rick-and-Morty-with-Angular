@@ -1,10 +1,11 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-slider',
-  templateUrl: './slider.component.html',
-  styleUrls: ['./slider.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-slider',
+    templateUrl: './slider.component.html',
+    styleUrls: ['./slider.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class SliderComponent {
   @Input() Slider__Arr: any[] = [];

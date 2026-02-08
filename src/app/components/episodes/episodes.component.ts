@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'episodes',
-  templateUrl: './episodes.component.html',
-  styleUrls: ['./episodes.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'episodes',
+    templateUrl: './episodes.component.html',
+    styleUrls: ['./episodes.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class EpisodesComponent {
   constructor(private Http: HttpClient) { }

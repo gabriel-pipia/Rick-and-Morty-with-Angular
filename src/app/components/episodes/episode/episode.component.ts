@@ -4,10 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { DataShareService } from 'src/app/services/data-share.service';
 
 @Component({
-  selector: 'episode',
-  templateUrl: './episode.component.html',
-  styleUrls: ['./episode.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'episode',
+    templateUrl: './episode.component.html',
+    styleUrls: ['./episode.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class EpisodeComponent {
   constructor(private route: ActivatedRoute, private http: HttpClient, private dataShare: DataShareService) { }

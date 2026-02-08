@@ -4,10 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-character',
-  templateUrl: './character.component.html',
-  styleUrls: ['./character.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-character',
+    templateUrl: './character.component.html',
+    styleUrls: ['./character.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class CharacterComponent {
   constructor(private route: ActivatedRoute, private http: HttpClient, private dataShare: DataShareService) { }

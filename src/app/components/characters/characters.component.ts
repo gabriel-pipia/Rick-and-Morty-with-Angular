@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-characters',
-  templateUrl: './characters.component.html',
-  styleUrls: ['./characters.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-characters',
+    templateUrl: './characters.component.html',
+    styleUrls: ['./characters.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class CharactersComponent {
   constructor(private Http: HttpClient) { }

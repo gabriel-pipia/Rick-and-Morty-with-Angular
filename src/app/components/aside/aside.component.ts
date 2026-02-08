@@ -2,10 +2,11 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { DataShareService } from 'src/app/services/data-share.service';
 
 @Component({
-  selector: 'app-aside',
-  templateUrl: './aside.component.html',
-  styleUrls: ['./aside.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-aside',
+    templateUrl: './aside.component.html',
+    styleUrls: ['./aside.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class AsideComponent {
   constructor(private Aside__Emitter: DataShareService) { }
