@@ -1,4 +1,24 @@
 <app-slider [Slider__Arr]="Slider__Arr"></app-slider>
+
+<section class="Card-Slider-Section">
+  <div class="Container">
+    <div class="Section-Header">
+      <h2>Trending Characters</h2>
+      <div class="Slider-Controls">
+        <button class="Scroll-Btn prev" (click)="scrollCards('left')">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="Scroll-Btn next" (click)="scrollCards('right')">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+    <div class="Cards-Track" #cardTrack>
+      <app-card *ngFor="let Character of Character__Arr" [Character]="Character"></app-card>
+    </div>
+  </div>
+</section>
+
 <section>
   <div class="Container">
     <header>

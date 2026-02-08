@@ -1,5 +1,5 @@
 import { DataShareService } from './../../services/data-share.service';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -10,12 +10,15 @@ import { HttpClient } from '@angular/common/http';
     standalone: false
 })
 export class MainComponent {
+  @ViewChild('cardTrack') cardTrack!: ElementRef;
+  
   constructor(private DataShare: DataShareService, private Http: HttpClient) { }
+  
   Character__Arr: any[] = [];
   Duplicate__Character__Arr: any[] = [];
   Slider__Arr: any[] = [];
   RandomNum__Arr: any[] = [];
-  SearchQuery: String = "";
+  SearchQuery: string = "";
   NotFound: boolean = false;
 
   ngOnInit(): void {
@@ -34,6 +37,7 @@ export class MainComponent {
       }
     }
   }
+
   GetCharacterData(): void {
     this.Slider__Arr = [];
     this.DataShare.GetCharacterData().subscribe((data: any) => {
@@ -48,9 +52,24 @@ export class MainComponent {
   }
 
   SearchCharacter(): void {
-    this.Duplicate__Character__Arr = this.Character__Arr.filter((character: any) => character.name.toLowerCase().trim().indexOf(this.SearchQuery.toLowerCase().trim()) != -1);
-    this.Duplicate__Character__Arr == [] as any ? this.NotFound = true : this.NotFound = false;
+    this.Duplicate__Character__Arr = this.Character__Arr.filter((character: any) => 
+      character.name.toLowerCase().trim().indexOf(this.SearchQuery.toLowerCase().trim()) != -1
+    );
+    this.NotFound = this.Duplicate__Character__Arr.length === 0;
   }
 
+  scrollCards(direction: 'left' | 'right'): void {
+    if (this.cardTrack) {
+      const scrollAmount = 320; // Width of one card + gap
+      const currentScroll = this.cardTrack.nativeElement.scrollLeft;
+      const newScroll = direction === 'left' 
+        ? currentScroll - scrollAmount 
+        : currentScroll + scrollAmount;
+      
+      this.cardTrack.nativeElement.scrollTo({
+        left: newScroll,
+        behavior: 'smooth'
+      });
+    }
+  }
 }
-

@@ -1,6 +1,89 @@
 @import "../../../assets/scss/Mixin";
 @import "../../../assets/scss/Variable";
 
+// Card Slider Section
+.Card-Slider-Section {
+  width: 100%;
+  padding: $size-2rem 0;
+  overflow: hidden;
+
+  .Container {
+    .Section-Header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: $size-1_5rem;
+
+      h2 {
+        font-size: $fs-large-xl;
+        font-weight: $fw-bold;
+        color: $color-white-default;
+        position: relative;
+        
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -5px;
+          left: 0;
+          width: 50px;
+          height: 3px;
+          background: linear-gradient(to right, $color-primary, $color-secondary);
+          border-radius: 2px;
+        }
+      }
+
+      .Slider-Controls {
+        display: flex;
+        gap: 0.5rem;
+
+        .Scroll-Btn {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: rgba(32, 35, 41, 0.8);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          color: $color-white-default;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background: $color-secondary;
+            border-color: $color-secondary;
+            transform: scale(1.1);
+          }
+
+          i {
+            font-size: $fs-medium;
+          }
+        }
+      }
+    }
+
+    .Cards-Track {
+      display: flex;
+      gap: $size-1_5rem;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: $size-1rem 0;
+      scrollbar-width: none; // Firefox
+      -ms-overflow-style: none; // IE
+
+      &::-webkit-scrollbar {
+        display: none; // Chrome, Safari
+      }
+
+      app-card {
+        flex: 0 0 280px;
+        min-width: 280px;
+      }
+    }
+  }
+}
+
+// Main Section
 section {
   width: 100%;
   padding-bottom: $size-2rem;
