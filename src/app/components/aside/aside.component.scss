@@ -20,34 +20,34 @@ aside {
     transition: opacity 0.4s ease;
   }
 
-  // Mobile Menu Panel
+  // Mobile Menu Panel - LEFT SIDE
   .Mobile-Menu {
     position: fixed;
     display: flex;
     flex-direction: column;
     top: 0;
-    right: 0;
+    left: 0;
     bottom: 0;
     width: 85%;
-    max-width: 360px;
+    max-width: 320px;
     background: linear-gradient(
       180deg,
       rgba(32, 35, 41, 0.98) 0%,
       rgba(11, 14, 17, 0.98) 100%
     );
-    border-left: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: -20px 0 60px rgba(0, 0, 0, 0.6);
-    transform: translateX(100%);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 20px 0 60px rgba(0, 0, 0, 0.6);
+    transform: translateX(-100%);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 10;
     overflow: hidden;
 
-    // Decorative gradient border
-    &::before {
+    // Decorative gradient border on right
+    &::after {
       content: '';
       position: absolute;
       top: 0;
-      left: 0;
+      right: 0;
       width: 3px;
       height: 100%;
       background: linear-gradient(
@@ -64,9 +64,8 @@ aside {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: $size-1_5rem $size-1_5rem;
+      padding: $size-1_5rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      background: rgba(0, 0, 0, 0.2);
 
       .Logo {
         display: flex;
@@ -92,8 +91,8 @@ aside {
       }
 
       .Close-Btn {
-        width: 44px;
-        height: 44px;
+        width: 40px;
+        height: 40px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -101,7 +100,7 @@ aside {
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 50%;
         color: $color-text-muted;
-        font-size: $fs-large;
+        font-size: $fs-medium;
         cursor: pointer;
         transition: all 0.3s ease;
 
@@ -216,7 +215,7 @@ aside {
             color: $color-primary;
           }
 
-          // Active indicator line
+          // Active indicator line on left
           &::before {
             content: '';
             position: absolute;
@@ -230,25 +229,6 @@ aside {
             box-shadow: 0 0 15px $color-primary;
           }
         }
-      }
-    }
-
-    // Footer
-    .Menu-Footer {
-      padding: $size-1_5rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      background: rgba(0, 0, 0, 0.2);
-      text-align: center;
-
-      .Copyright {
-        font-size: $fs-tiny;
-        color: $color-text-muted;
-        margin-bottom: 0.25rem;
-      }
-
-      .Api-Credit {
-        font-size: $fs-tiny;
-        color: rgba(255, 255, 255, 0.3);
       }
     }
   }
