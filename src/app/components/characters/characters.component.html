@@ -1,60 +1,147 @@
-<section>
+<section class="Characters-Page">
   <div class="Container">
-    <header>
-      <div class="Top">
-        <h1>All Rick And Morty Characters</h1>
-      </div>
-      <div class="Bottom">
-        <label for="Search" class="Input__Wrapper">
-          <input
-            type="text"
-            placeholder="Search Character"
-            id="Search"
-            class="Input"
-            [(ngModel)]="SearchQuery"
-            (input)="SearchCharacter()"
-          />
-          <i class="fa fa-search"></i>
-        </label>
-        <div class="Select__Wrapper">
-          <select (input)="Sort($event)">
-            <option value="All" selected>All</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select>
-          <i class="fa fa-angle-down"></i>
-        </div>
-      </div>
-    </header>
-    <main>
-      <app-card *ngFor="
-          let Character of Duplicate__Character__Arr
-            | paginate
-              : {
-                  itemsPerPage: ItemSize,
-                  currentPage: Page,
-                  totalItems: PageCount
-                };
-          let i = index
-        " [Character]="Character"></app-card>
-    </main>
-    <h3 class="Not__Found" *ngIf="NotFound">Character Not Found! :(</h3>
-    <pagination-template #pagination="paginationApi" (pageChange)="PageChange($event)">
-      <div class="pagination-controls">
-        <button class="Button-Prev" [disabled]="pagination.isFirstPage()" (click)="pagination.previous()">
-          <i class="fas fa-angle-left"></i>
+    <!-- Header -->
+    <div class="Page-Header">
+      <h1>Characters</h1>
+      <p class="Subtitle">Discover {{ TotalCharacters || 'all' }} characters from the Rick and Morty universe</p>
+    </div>
+
+    <!-- Filters Section -->
+    <div class="Filters-Section">
+      <!-- Search -->
+      <div class="Search-Wrapper">
+        <i class="fas fa-search"></i>
+        <input 
+          type="text" 
+          placeholder="Search by name..." 
+          [(ngModel)]="SearchQuery"
+          (input)="OnSearchChange()"
+        />
+        <button 
+          class="Clear-Btn" 
+          *ngIf="SearchQuery" 
+          (click)="SearchQuery = ''; OnSearchChange()">
+          <i class="fas fa-times"></i>
         </button>
-        <span class="pagination-bullets">
+      </div>
+
+      <!-- Species Select -->
+      <div class="Select-Wrapper">
+        <select (change)="OnSpeciesChange($event)">
+          <option value="all" [selected]="SelectedSpecies === 'all'">All Species</option>
+          <option *ngFor="let species of SpeciesOptions" [value]="species" [selected]="SelectedSpecies === species">
+            {{ species }}
+          </option>
+        </select>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+    </div>
+
+    <!-- Filter Chips -->
+    <div class="Filter-Chips">
+      <!-- Status Filter -->
+      <div class="Chip-Group">
+        <span class="Chip-Label">Status:</span>
+        <button 
+          class="Chip" 
+          [class.active]="SelectedStatus === 'all'"
+          (click)="OnStatusChange('all')">
+          All
+        </button>
+        <button 
+          *ngFor="let status of StatusOptions" 
+          class="Chip"
+          [class.active]="SelectedStatus === status"
+          [ngClass]="status.toLowerCase()"
+          (click)="OnStatusChange(status)">
+          <span class="Status-Dot"></span>
+          {{ status }}
+        </button>
+      </div>
+
+      <!-- Gender Filter -->
+      <div class="Chip-Group">
+        <span class="Chip-Label">Gender:</span>
+        <button 
+          class="Chip" 
+          [class.active]="SelectedGender === 'all'"
+          (click)="OnGenderChange('all')">
+          All
+        </button>
+        <button 
+          *ngFor="let gender of GenderOptions" 
+          class="Chip"
+          [class.active]="SelectedGender === gender"
+          (click)="OnGenderChange(gender)">
+          {{ gender }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Results Info -->
+    <div class="Results-Info">
+      <span class="Count" *ngIf="!IsLoading && !NotFound">
+        Showing {{ Filtered__Characters.length }} of {{ TotalCharacters }} characters
+      </span>
+      <button class="Reset-Btn" *ngIf="HasActiveFilters()" (click)="ClearFilters()">
+        <i class="fas fa-redo"></i> Reset All
+      </button>
+    </div>
+
+    <!-- Loading State -->
+    <div class="Loading-State" *ngIf="IsLoading">
+      <div class="Loader"></div>
+      <p>Loading characters...</p>
+    </div>
+
+    <!-- No Results -->
+    <div class="No-Results" *ngIf="NotFound && !IsLoading">
+      <i class="fas fa-user-slash"></i>
+      <h3>No characters found</h3>
+      <p>Try different filters or search terms</p>
+      <button (click)="ClearFilters()">Clear All Filters</button>
+    </div>
+
+    <!-- Characters Grid -->
+    <main class="Characters-Grid" *ngIf="!IsLoading && !NotFound">
+      <app-card 
+        *ngFor="let Character of Filtered__Characters | paginate: {
+          itemsPerPage: ItemSize,
+          currentPage: Page,
+          totalItems: TotalCharacters
+        }" 
+        [Character]="Character">
+      </app-card>
+    </main>
+
+    <!-- Pagination -->
+    <pagination-template 
+      #pagination="paginationApi" 
+      (pageChange)="PageChange($event)"
+      *ngIf="!IsLoading && TotalCharacters > ItemSize">
+      <div class="Pagination-Controls">
+        <button 
+          class="Page-Btn" 
+          [disabled]="pagination.isFirstPage()" 
+          (click)="pagination.previous()">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="Page-Numbers">
           <button
             *ngFor="let page of pagination.pages"
+            class="Page-Number"
             [class.active]="pagination.getCurrent() === page.value"
-            (click)="pagination.setCurrent(page.value)"
-          >
+            (click)="pagination.setCurrent(page.value)">
             {{ page.label }}
           </button>
-        </span>
-        <button class="Button-Next" [disabled]="pagination.isLastPage()" (click)="pagination.next()">
-          <i class="fas fa-angle-right"></i>
+        </div>
+        
+        <button 
+          class="Page-Btn" 
+          [disabled]="pagination.isLastPage()" 
+          (click)="pagination.next()">
+          <i class="fas fa-chevron-right"></i>
         </button>
       </div>
     </pagination-template>

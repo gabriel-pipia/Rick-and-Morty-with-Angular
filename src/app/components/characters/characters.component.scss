@@ -1,194 +1,418 @@
 @import "../../../assets/scss/Mixin";
 @import "../../../assets/scss/Variable";
 
-section {
+.Characters-Page {
   width: 100%;
+  min-height: 100vh;
   padding-bottom: $size-3rem;
 
   .Container {
-    header {
-      padding: $size-2rem 0;
-      display: flex;
-      flex-direction: column;
-      gap: $size-2rem;
+    width: 90%;
+    max-width: $containr-max-width;
+    margin: 0 auto;
+  }
 
-      .Top {
-        h1 {
-          font-size: $fs-large-4xl; // Bigger title for dedicated page
-          font-weight: $fw-black;
-          color: $color-white-default;
-          line-height: 1;
-          margin-bottom: $size-05rem;
-          
-          @include breakPoints(768px) {
-            font-size: $fs-large-xxl;
-          }
-        }
-      }
+  // Page Header
+  .Page-Header {
+    padding: $size-2rem 0;
 
-      .Bottom {
-        display: flex;
-        flex-wrap: wrap;
-        gap: $size-1rem;
-        align-items: center;
+    h1 {
+      font-size: 2rem;
+      font-weight: $fw-black;
+      background: linear-gradient(135deg, $color-primary, $color-secondary);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
 
-        .Input__Wrapper {
-          flex: 1;
-          min-width: 280px;
-          height: 55px;
-          border-radius: $big-radius;
-          background: rgba(32, 35, 41, 0.6);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          display: flex;
-          align-items: center;
-          padding: 0 $size-1rem;
-          transition: $transition;
-
-          &:focus-within {
-            border-color: $color-secondary;
-            box-shadow: 0 0 10px rgba(0, 176, 200, 0.2);
-          }
-
-          .Input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            color: $color-white-default;
-            font-size: $fs-medium;
-            height: 100%;
-
-            &:focus {
-              outline: none;
-            }
-          }
-
-          i {
-            color: $color-text-muted;
-          }
-        }
-
-        .Select__Wrapper {
-          position: relative;
-          width: 180px;
-          height: 55px;
-          border-radius: $big-radius;
-          background: rgba(32, 35, 41, 0.6);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          overflow: hidden;
-          transition: $transition;
-
-          &:hover {
-            border-color: $color-primary;
-          }
-
-          select {
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            color: $color-white-default;
-            padding: 0 $size-1rem;
-            border: none;
-            cursor: pointer;
-            appearance: none;
-            font-size: $fs-medium;
-            position: relative;
-            z-index: 1;
-
-            option {
-              background: $bg-color-card;
-              color: $color-white-default;
-            }
-          }
-
-          i {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: $color-primary;
-            pointer-events: none;
-            z-index: 0;
-          }
-        }
+      @include breakPoints(768px) {
+        font-size: 3rem;
       }
     }
 
-    main {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: $size-2rem;
-      margin-bottom: $size-3rem;
-    }
-
-    .Not__Found {
-      text-align: center;
-      font-size: $fs-large;
+    .Subtitle {
       color: $color-text-muted;
-      padding: 4rem 0;
+      font-size: $fs-medium;
+    }
+  }
+
+  // Filters Section
+  .Filters-Section {
+    display: flex;
+    flex-direction: column;
+    gap: $size-1rem;
+    margin-bottom: $size-1_5rem;
+    padding: $size-1_5rem;
+    background: rgba(32, 35, 41, 0.5);
+    border-radius: $big-radius;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+
+    @include breakPoints(768px) {
+      flex-direction: row;
+      align-items: center;
     }
 
-    .pagination-controls {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: $size-1rem;
-      margin-top: $size-2rem;
-      flex-wrap: wrap;
+    // Search Input
+    .Search-Wrapper {
+      position: relative;
+      flex: 1;
 
-      .Button-Prev,
-      .Button-Next {
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        background: rgba(32, 35, 41, 0.8);
+      i.fa-search {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $color-text-muted;
+        font-size: $fs-medium;
+      }
+
+      input {
+        width: 100%;
+        height: 48px;
+        padding: 0 3rem 0 2.75rem;
+        background: rgba(255, 255, 255, 0.05);
         border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: $pill-radius;
         color: $color-white-default;
+        font-size: $fs-medium;
+        font-family: $ff;
+        transition: all 0.3s ease;
+
+        &::placeholder {
+          color: $color-text-muted;
+        }
+
+        &:focus {
+          outline: none;
+          border-color: $color-secondary;
+          background: rgba(0, 176, 200, 0.05);
+        }
+      }
+
+      .Clear-Btn {
+        position: absolute;
+        right: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: $color-text-muted;
+        cursor: pointer;
         display: flex;
         justify-content: center;
         align-items: center;
-        cursor: pointer;
         transition: all 0.2s ease;
 
-        &:hover:not(:disabled) {
-          background: $color-secondary;
-          border-color: $color-secondary;
-          transform: scale(1.1);
+        &:hover {
+          background: rgba(214, 61, 46, 0.2);
+          color: $color-dead;
+        }
+      }
+    }
+
+    // Species Select
+    .Select-Wrapper {
+      position: relative;
+      min-width: 160px;
+
+      select {
+        width: 100%;
+        height: 48px;
+        padding: 0 2.5rem 0 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: $pill-radius;
+        color: $color-white-default;
+        font-size: $fs-medium;
+        font-family: $ff;
+        cursor: pointer;
+        appearance: none;
+        transition: all 0.3s ease;
+
+        &:focus {
+          outline: none;
+          border-color: $color-primary;
         }
 
-        &:disabled {
-          opacity: 0.3;
-          cursor: not-allowed;
+        option {
+          background: $bg-color-body;
+          color: $color-white-default;
         }
       }
 
-      .pagination-bullets {
+      i {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $color-text-muted;
+        pointer-events: none;
+      }
+    }
+  }
+
+  // Filter Chips
+  .Filter-Chips {
+    display: flex;
+    flex-direction: column;
+    gap: $size-1rem;
+    margin-bottom: $size-1_5rem;
+
+    @include breakPoints(992px) {
+      flex-direction: row;
+      gap: $size-2rem;
+    }
+
+    .Chip-Group {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+
+      .Chip-Label {
+        color: $color-text-muted;
+        font-size: $fs-small;
+        font-weight: $fw-medium;
+        margin-right: 0.25rem;
+      }
+
+      .Chip {
         display: flex;
-        gap: 0.5rem;
-        background: rgba(32, 35, 41, 0.6);
-        padding: 0.5rem;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.4rem 0.85rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: $pill-radius;
+        color: $color-text-muted;
+        font-size: $fs-small;
+        font-weight: $fw-medium;
+        cursor: pointer;
+        transition: all 0.3s ease;
 
-        button {
-          width: 35px;
-          height: 35px;
+        .Status-Dot {
+          width: 8px;
+          height: 8px;
           border-radius: 50%;
-          border: none;
-          background: transparent;
-          color: $color-text-muted;
-          font-weight: $fw-bold;
-          cursor: pointer;
-          transition: all 0.2s ease;
+          background: currentColor;
+        }
 
-          &:hover {
-            color: $color-white-default;
-            background: rgba(255, 255, 255, 0.1);
-          }
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+          color: $color-white-default;
+        }
 
-          &.active {
-            background: $color-primary;
-            color: $color-black-default;
-            box-shadow: 0 0 10px rgba(151, 206, 76, 0.4);
+        &.active {
+          background: linear-gradient(135deg, rgba(151, 206, 76, 0.2), rgba(0, 176, 200, 0.2));
+          border-color: $color-primary;
+          color: $color-primary;
+        }
+
+        // Status colors
+        &.alive {
+          &.active, &:hover {
+            border-color: $color-alive;
+            color: $color-alive;
           }
+          .Status-Dot { background: $color-alive; }
+        }
+
+        &.dead {
+          &.active, &:hover {
+            border-color: $color-dead;
+            color: $color-dead;
+          }
+          .Status-Dot { background: $color-dead; }
+        }
+
+        &.unknown {
+          .Status-Dot { background: $color-unknown; }
+        }
+      }
+    }
+  }
+
+  // Results Info
+  .Results-Info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $size-1_5rem;
+    padding: 0 0.5rem;
+
+    .Count {
+      color: $color-text-muted;
+      font-size: $fs-small;
+    }
+
+    .Reset-Btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: $pill-radius;
+      color: $color-text-muted;
+      font-size: $fs-small;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        border-color: $color-secondary;
+        color: $color-secondary;
+      }
+    }
+  }
+
+  // Loading State
+  .Loading-State {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $size-3rem;
+    gap: $size-1rem;
+
+    .Loader {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      border-top-color: $color-primary;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    p {
+      color: $color-text-muted;
+      font-size: $fs-medium;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  }
+
+  // No Results
+  .No-Results {
+    text-align: center;
+    padding: $size-3rem;
+    background: rgba(32, 35, 41, 0.3);
+    border-radius: $big-radius;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+
+    i {
+      font-size: 3rem;
+      color: $color-text-muted;
+      margin-bottom: $size-1rem;
+    }
+
+    h3 {
+      color: $color-white-default;
+      font-size: $fs-large-xl;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: $color-text-muted;
+      margin-bottom: $size-1_5rem;
+    }
+
+    button {
+      padding: 0.75rem 1.5rem;
+      background: $color-primary;
+      border: none;
+      border-radius: $pill-radius;
+      color: $color-black-default;
+      font-weight: $fw-bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(151, 206, 76, 0.4);
+      }
+    }
+  }
+
+  // Characters Grid
+  .Characters-Grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: $size-1_5rem;
+    margin-bottom: $size-2rem;
+
+    @include breakPoints(768px) {
+      gap: $size-2rem;
+    }
+  }
+
+  // Pagination
+  .Pagination-Controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $size-1rem;
+    margin-top: $size-2rem;
+    flex-wrap: wrap;
+
+    .Page-Btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(32, 35, 41, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: $color-white-default;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover:not(:disabled) {
+        background: $color-secondary;
+        border-color: $color-secondary;
+        transform: scale(1.1);
+      }
+
+      &:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+      }
+    }
+
+    .Page-Numbers {
+      display: flex;
+      gap: 0.5rem;
+      background: rgba(32, 35, 41, 0.6);
+      padding: 0.5rem;
+      border-radius: $pill-radius;
+      backdrop-filter: blur(10px);
+
+      .Page-Number {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: none;
+        background: transparent;
+        color: $color-text-muted;
+        font-weight: $fw-bold;
+        font-size: $fs-small;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          color: $color-white-default;
+          background: rgba(255, 255, 255, 0.1);
+        }
+
+        &.active {
+          background: $color-primary;
+          color: $color-black-default;
+          box-shadow: 0 0 10px rgba(151, 206, 76, 0.4);
         }
       }
     }
