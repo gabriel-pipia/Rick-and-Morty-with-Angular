@@ -1,29 +1,143 @@
 @import "../../../assets/scss/Mixin";
-@import "../../../assets/scss/Reset";
 @import "../../../assets/scss/Variable";
+
 .Wrapper {
   position: fixed;
   z-index: $z-index-overlay;
   inset: 0;
-  background: $bg-color-dark;
-  @include display-flex(column, center, center, $size-1rem);
-  &::after {
-    content: "404";
+  background: $bg-color-body;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  &::before {
+    content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 150px;
-    z-index: -1;
-    color: $bg-color-light-dark;
-    font-weight: $fw-black;
+    width: 200vw;
+    height: 200vh;
+    background: radial-gradient(circle, rgba(151, 206, 76, 0.05) 0%, transparent 70%);
+    animation: rotate 60s linear infinite;
   }
-  h1 {
-    font-size: $fs-large-xxl;
-    color: $color-white-default;
-    font-weight: $fw-bold;
+
+  .Content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $size-1_5rem;
+
+    .Portal {
+      width: 200px;
+      height: 200px;
+      margin-bottom: $size-2rem;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, #97ce4c, #00b0c8, #e89ac7, #97ce4c);
+      filter: blur(20px);
+      animation: spin 4s linear infinite;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+      opacity: 0.6;
+    }
+
+    .Glitch-Text {
+      font-size: 8rem;
+      font-weight: $fw-black;
+      color: $color-white-default;
+      position: relative;
+      text-shadow: 4px 4px 0 $color-secondary;
+
+      &::before, &::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      &::before {
+        left: 2px;
+        text-shadow: -2px 0 $color-dead;
+        clip: rect(24px, 550px, 90px, 0);
+        animation: glitch-anim-2 3s infinite linear alternate-reverse;
+      }
+
+      &::after {
+        left: -2px;
+        text-shadow: -2px 0 $color-primary;
+        clip: rect(85px, 550px, 140px, 0);
+        animation: glitch-anim 2.5s infinite linear alternate-reverse;
+      }
+    }
+
+    h1 {
+      font-size: $fs-large-xxl;
+      font-weight: $fw-bold;
+      color: $color-primary;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    p {
+      color: $color-text-muted;
+      font-size: $fs-large;
+      max-width: 400px;
+    }
+
+    .Go-Back-Btn {
+      margin-top: $size-1rem;
+      padding: 1rem 2rem;
+      background: rgba(0, 176, 200, 0.1);
+      border: 1px solid $color-secondary;
+      color: $color-secondary;
+      border-radius: $pill-radius;
+      font-weight: $fw-bold;
+      font-size: $fs-medium;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+
+      &:hover {
+        background: $color-secondary;
+        color: $color-black-default;
+        box-shadow: 0 0 20px rgba(0, 176, 200, 0.4);
+        transform: translateY(-2px);
+      }
+    }
   }
-  a {
-    @include primary-button( auto, 45px, (0 0), ($size-05rem $size-1_5rem), $small-radius, $fs-medium, $fw-bold, $color-white-default, $color-primary);
-  }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(10px, 9999px, 31px, 0); }
+  20% { clip: rect(65px, 9999px, 86px, 0); }
+  40% { clip: rect(22px, 9999px, 8px, 0); }
+  60% { clip: rect(84px, 9999px, 3px, 0); }
+  80% { clip: rect(48px, 9999px, 57px, 0); }
+  100% { clip: rect(3px, 9999px, 96px, 0); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip: rect(65px, 9999px, 100px, 0); }
+  20% { clip: rect(22px, 9999px, 3px, 0); }
+  40% { clip: rect(84px, 9999px, 16px, 0); }
+  60% { clip: rect(10px, 9999px, 68px, 0); }
+  80% { clip: rect(3px, 9999px, 5px, 0); }
+  100% { clip: rect(48px, 9999px, 57px, 0); }
 }
