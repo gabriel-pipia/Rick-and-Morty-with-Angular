@@ -6,13 +6,13 @@
       [class.Active]="i === SliderIndex">
       
       <div class="Slide-Background">
-        <img [src]="slide.image" alt="Background" class="blur-bg" loading="lazy" />
+        <img [src]="slide.image" alt="Background" class="blur-bg" loading="eager" />
         <div class="overlay"></div>
       </div>
 
       <div class="Slide-Content">
         <div class="Image-Container" [routerLink]="['/characters/character/', slide.id]">
-          <img [src]="slide.image" [alt]="slide.name" loading="lazy" />
+          <img [src]="slide.image" [alt]="slide.name" loading="eager" />
         </div>
         
         <div class="SliderCaption">
