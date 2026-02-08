@@ -41,7 +41,7 @@
       margin-bottom: $size-3rem;
 
       .Episode-Hero {
-        background: radial-gradient(circle at center, rgba(32, 35, 41, 0.9), rgba(11, 14, 17, 0.9)), url('../../../../../assets/svg/favicon withe.svg'); // Fallback or pattern
+        background: radial-gradient(circle at center, rgba(32, 35, 41, 0.9), rgba(11, 14, 17, 0.9));
         background-size: cover;
         background-position: center;
         border-radius: $big-radius;
