@@ -1,7 +1,21 @@
-<article>
-  <h2>{{ Episode.name }}</h2>
-  <h3>{{ Episode.episode }}</h3>
-  <button type="button" [routerLink]="['/episodes/episode', Episode.id]">
-    Show Details
-  </button>
+<article class="Episode-Card">
+  <div class="Card-Header">
+    <div class="Episode-Code">{{ Episode.episode }}</div>
+    <div class="Air-Date">{{ Episode.air_date }}</div>
+  </div>
+  
+  <div class="Card-Body">
+    <h2 class="Episode-Title" [title]="Episode.name">{{ Episode.name }}</h2>
+    <div class="Character-Count">
+      <i class="fas fa-users"></i>
+      <span>{{ Episode.characters.length }} Characters</span>
+    </div>
+  </div>
+
+  <div class="Card-Footer">
+    <button class="Details-Btn" [routerLink]="['/episodes/episode', Episode.id]">
+      <span>Episode Details</span>
+      <i class="fas fa-arrow-right"></i>
+    </button>
+  </div>
 </article>

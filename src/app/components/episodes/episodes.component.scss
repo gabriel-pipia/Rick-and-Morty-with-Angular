@@ -1,67 +1,101 @@
 @import "../../../assets/scss/Mixin";
-@import "../../../assets/scss/Reset";
 @import "../../../assets/scss/Variable";
+
 section {
-  width: $full-width;
+  width: 100%;
+  padding-bottom: $size-3rem;
+
   .Container {
     width: 90%;
+    max-width: $containr-max-width;
+    margin: 0 auto;
+    
     .header {
-      position: relative;
       padding: $size-2rem 0;
-      width: $full-width;
-      @include display-flex(row, flex-start, center, 0);
       h1 {
-        font-size: $fs-large-xxl;
-        font-weight: $fw-bold;
-        color: $color-gray-200;
+        font-size: $fs-large-4xl;
+        font-weight: $fw-black;
+        color: $color-white-default;
+        text-align: center;
+        background: linear-gradient(to right, $color-primary, $color-secondary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: $size-1rem;
+
+        @include breakPoints(768px) {
+          font-size: $fs-large-xxl;
+        }
       }
     }
+
     .main {
-      position: relative;
-      width: $full-width;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
-      grid-gap: $size-1_5rem;
-      grid-auto-flow: row dense;
-      justify-items: center;
-      margin-bottom: $size-2rem;
-      episode-card {
-        width: $full-width;
-        height: $full-height;
-      }
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: $size-2rem;
+      margin-bottom: $size-3rem;
     }
+
     .pagination-controls {
-      @include display-flex(row, center, center, $size-1_5rem);
-      margin: $size-1_5rem auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: $size-1rem;
+      margin-top: $size-2rem;
+      flex-wrap: wrap;
+
       .Button-Prev,
       .Button-Next {
-        @include primary-button( 40px, 40px, (0, 0), (0, 0), $small-radius, $fs-small-xl, $fw-bold, $color-white-default, $color-primary);
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: rgba(32, 35, 41, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: $color-white-default;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover:not(:disabled) {
+          background: $color-secondary;
+          border-color: $color-secondary;
+          transform: scale(1.1);
+        }
+
+        &:disabled {
+          opacity: 0.3;
+          cursor: not-allowed;
+        }
       }
+
       .pagination-bullets {
-        @include display-flex(row, space-between, center, $size-08rem);
+        display: flex;
+        gap: 0.5rem;
+        background: rgba(32, 35, 41, 0.6);
+        padding: 0.5rem;
+        border-radius: $pill-radius;
+
         button {
-          position: relative;
-          &::before {
-            content: "";
-            position: absolute;
-            top: $full-height;
-            left: 0;
-            right: 0;
-            width: $full-width;
-            height: $size-02rem;
-            border-radius: $small-radius;
-            background: $color-primary;
-            box-shadow: $shadow-basic;
-            visibility: hidden;
-          }
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+          border: none;
+          background: transparent;
+          color: $color-text-muted;
+          font-weight: $fw-bold;
+          cursor: pointer;
+          transition: all 0.2s ease;
+
           &:hover {
-            color: $color-primary;
+            color: $color-white-default;
+            background: rgba(255, 255, 255, 0.1);
           }
+
           &.active {
-            &::before {
-              visibility: visible;
-            }
+            background: $color-primary;
+            color: $color-black-default;
+            box-shadow: 0 0 10px rgba(151, 206, 76, 0.4);
           }
         }
       }
