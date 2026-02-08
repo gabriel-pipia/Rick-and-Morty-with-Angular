@@ -36,9 +36,9 @@
                   totalItems: PageCount
                 };
           let i = index
-        " [Character]="this.Character"></app-card>
+        " [Character]="Character"></app-card>
     </main>
-    <h3 class="Not__Found" *ngIf="this.NotFound">Character Not Found! :(</h3>
+    <h3 class="Not__Found" *ngIf="NotFound">Character Not Found! :(</h3>
     <pagination-template #pagination="paginationApi" (pageChange)="PageChange($event)">
       <div class="pagination-controls">
         <button class="Button-Prev" [disabled]="pagination.isFirstPage()" (click)="pagination.previous()">
