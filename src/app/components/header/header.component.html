@@ -1,21 +1,33 @@
 <header class="Main__Header" [ngClass]="HeaderSticky ? 'Sticky' : ''">
   <div class="Container">
+    <!-- Logo -->
     <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="Logo">
-      <img src="../../../assets/svg/favicon.svg" alt="" class="logo-1" />
-      <img src="../../../assets/svg/favicon withe.svg" alt="" class="logo-2" />
+      <div class="Logo-Glow"></div>
+      <img src="../../../assets/svg/favicon withe.svg" alt="Rick and Morty" />
+      <span class="Logo-Text">R&M</span>
     </a>
 
-    <nav>
+    <!-- Desktop Navigation -->
+    <nav class="Desktop-Nav">
       <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <i class="fas fa-house"></i> Home</a>
-      <a routerLink="/characters" routerLinkActive="active"><i class="fas fa-users"></i> Characters</a
-      >
-      <a routerLink="/episodes" routerLinkActive="active"
-        ><i class="fas fa-clapperboard"></i> episodes</a
-      >
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a routerLink="/characters" routerLinkActive="active">
+        <i class="fas fa-users"></i>
+        <span>Characters</span>
+      </a>
+      <a routerLink="/episodes" routerLinkActive="active">
+        <i class="fas fa-film"></i>
+        <span>Episodes</span>
+      </a>
     </nav>
-    <button class="Button-Open__Nav" (click)="Open__Aside()">
-      <i class="fas fa-bars"></i>
+
+    <!-- Mobile Menu Button -->
+    <button class="Mobile-Menu-Btn" (click)="Open__Aside()" aria-label="Open menu">
+      <span class="Bar"></span>
+      <span class="Bar"></span>
+      <span class="Bar"></span>
     </button>
   </div>
 </header>
