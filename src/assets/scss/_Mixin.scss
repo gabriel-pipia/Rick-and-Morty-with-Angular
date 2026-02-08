@@ -1,3 +1,4 @@
+@use "sass:map";
 @import "./Variable";
 
 // Breakpoints
@@ -12,8 +13,8 @@ $breakpoints: (
 
 // Media Query Mixin
 @mixin breakPoints($size) {
-  @if map-has-key($breakpoints, $size) {
-    @media screen and (min-width: map-get($breakpoints, $size)) {
+  @if map.has-key($breakpoints, $size) {
+    @media screen and (min-width: map.get($breakpoints, $size)) {
       @content;
     }
   } @else {
@@ -87,7 +88,6 @@ $breakpoints: (
   &:hover {
     filter: brightness(1.1);
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba($bg-color, 0.4);
   }
   
   &:active {
