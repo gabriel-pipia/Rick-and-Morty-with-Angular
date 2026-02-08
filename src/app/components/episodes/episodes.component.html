@@ -1,36 +1,104 @@
-<section>
+<section class="Episodes-Page">
   <div class="Container">
-    <div class="header">
-      <h1>Rick And Morty Episodes</h1>
+    <!-- Header -->
+    <div class="Page-Header">
+      <h1>Episodes</h1>
+      <p class="Subtitle">Explore all Rick and Morty episodes across {{ Seasons.length }} seasons</p>
     </div>
-    <div class="main">
-      <episode-card *ngFor="
-          let Episode of Episode__Arr
-            | paginate
-              : {
-                  itemsPerPage: ItemSize,
-                  currentPage: Page,
-                  totalItems: PageCount
-                };
-          let i = index
-        " [Episode]="Episode"></episode-card>
-    </div>
-    <pagination-template #pagination="paginationApi" (pageChange)="PageChange($event)">
-      <div class="pagination-controls">
-        <button class="Button-Prev" [disabled]="pagination.isFirstPage()" (click)="pagination.previous()">
-          <i class="fas fa-angle-left"></i>
+
+    <!-- Filters -->
+    <div class="Filters-Section">
+      <!-- Search -->
+      <div class="Search-Wrapper">
+        <i class="fas fa-search"></i>
+        <input 
+          type="text" 
+          placeholder="Search episodes..." 
+          [(ngModel)]="SearchQuery"
+          (input)="OnSearchChange()"
+        />
+        <button 
+          class="Clear-Btn" 
+          *ngIf="SearchQuery" 
+          (click)="SearchQuery = ''; OnSearchChange()">
+          <i class="fas fa-times"></i>
         </button>
-        <span class="pagination-bullets">
+      </div>
+
+      <!-- Season Filter -->
+      <div class="Season-Filter">
+        <button 
+          class="Season-Btn" 
+          [class.active]="SelectedSeason === 'all'"
+          (click)="OnSeasonChange('all')">
+          All
+        </button>
+        <button 
+          *ngFor="let season of Seasons" 
+          class="Season-Btn"
+          [class.active]="SelectedSeason === season"
+          (click)="OnSeasonChange(season)">
+          {{ season }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Results Info -->
+    <div class="Results-Info" *ngIf="Filtered__Episodes.length > 0">
+      <span class="Count">{{ Filtered__Episodes.length }} episodes found</span>
+      <button class="Reset-Btn" *ngIf="SearchQuery || SelectedSeason !== 'all'" (click)="ClearFilters()">
+        <i class="fas fa-redo"></i> Reset Filters
+      </button>
+    </div>
+
+    <!-- No Results -->
+    <div class="No-Results" *ngIf="Filtered__Episodes.length === 0">
+      <i class="fas fa-search"></i>
+      <h3>No episodes found</h3>
+      <p>Try adjusting your search or filter</p>
+      <button (click)="ClearFilters()">Clear Filters</button>
+    </div>
+
+    <!-- Episodes Grid -->
+    <div class="Episodes-Grid" *ngIf="Filtered__Episodes.length > 0">
+      <episode-card 
+        *ngFor="let Episode of Filtered__Episodes | paginate: {
+          itemsPerPage: ItemSize,
+          currentPage: Page,
+          totalItems: Filtered__Episodes.length
+        }" 
+        [Episode]="Episode">
+      </episode-card>
+    </div>
+
+    <!-- Pagination -->
+    <pagination-template 
+      #pagination="paginationApi" 
+      (pageChange)="PageChange($event)"
+      *ngIf="Filtered__Episodes.length > ItemSize">
+      <div class="Pagination-Controls">
+        <button 
+          class="Page-Btn Prev" 
+          [disabled]="pagination.isFirstPage()" 
+          (click)="pagination.previous()">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="Page-Numbers">
           <button
             *ngFor="let page of pagination.pages"
+            class="Page-Number"
             [class.active]="pagination.getCurrent() === page.value"
-            (click)="pagination.setCurrent(page.value)"
-          >
+            (click)="pagination.setCurrent(page.value)">
             {{ page.label }}
           </button>
-        </span>
-        <button class="Button-Next" [disabled]="pagination.isLastPage()" (click)="pagination.next()">
-          <i class="fas fa-angle-right"></i>
+        </div>
+        
+        <button 
+          class="Page-Btn Next" 
+          [disabled]="pagination.isLastPage()" 
+          (click)="pagination.next()">
+          <i class="fas fa-chevron-right"></i>
         </button>
       </div>
     </pagination-template>
