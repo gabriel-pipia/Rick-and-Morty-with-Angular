@@ -1,17 +1,58 @@
 <aside [ngClass]="Active__Aside ? 'active' : ''">
+  <!-- Overlay -->
   <div class="Aside__Overlay" (click)="Close__Aside()"></div>
-  <div class="Wrapper">
-    <button class="Button-Close__Nav" (click)="Close__Aside()">
-      <i class="fa fa-times"></i>
-    </button>
-    <nav>
-      <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <i class="fas fa-house"></i> Home</a>
-      <a routerLink="/characters" routerLinkActive="active"><i class="fas fa-users"></i> Characters</a
-      >
-      <a routerLink="/episodes" routerLinkActive="active"
-        ><i class="fas fa-clapperboard"></i> episodes</a
-      >
+  
+  <!-- Mobile Menu Panel -->
+  <div class="Mobile-Menu">
+    <!-- Header -->
+    <div class="Menu-Header">
+      <div class="Logo">
+        <img src="../../../assets/svg/favicon withe.svg" alt="Logo" />
+        <span>R&M</span>
+      </div>
+      <button class="Close-Btn" (click)="Close__Aside()" aria-label="Close menu">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <!-- Navigation Links -->
+    <nav class="Menu-Nav">
+      <a routerLink="" 
+         routerLinkActive="active" 
+         [routerLinkActiveOptions]="{ exact: true }"
+         (click)="Close__Aside()">
+        <div class="Nav-Icon">
+          <i class="fas fa-home"></i>
+        </div>
+        <span class="Nav-Text">Home</span>
+        <i class="fas fa-chevron-right Nav-Arrow"></i>
+      </a>
+      
+      <a routerLink="/characters" 
+         routerLinkActive="active"
+         (click)="Close__Aside()">
+        <div class="Nav-Icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <span class="Nav-Text">Characters</span>
+        <i class="fas fa-chevron-right Nav-Arrow"></i>
+      </a>
+      
+      <a routerLink="/episodes" 
+         routerLinkActive="active"
+         (click)="Close__Aside()">
+        <div class="Nav-Icon">
+          <i class="fas fa-film"></i>
+        </div>
+        <span class="Nav-Text">Episodes</span>
+        <i class="fas fa-chevron-right Nav-Arrow"></i>
+      </a>
     </nav>
+
+    <!-- Footer -->
+    <div class="Menu-Footer">
+      <p class="Copyright">© 2024 Rick and Morty Fan App</p>
+      <p class="Api-Credit">Powered by Rick and Morty API</p>
+    </div>
   </div>
 </aside>
