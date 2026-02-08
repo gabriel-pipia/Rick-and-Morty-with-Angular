@@ -1,162 +1,176 @@
 @import "../../../../assets/scss/Mixin";
-@import "../../../../assets/scss/Reset";
 @import "../../../../assets/scss/Variable";
+
 .section {
-  width: $full-width;
-  min-height: calc($full-height-vh - 66px);
+  width: 100%;
+  padding-bottom: $size-3rem;
+
   .Container {
     width: 90%;
+    max-width: $containr-max-width;
+    margin: 0 auto;
+
     .header {
-      position: relative;
-      padding: $size-1rem 0;
-      width: $full-width;
-      @include display-flex(row, flex-start, center, $size-1rem);
-      button {
-        @include primary-button( auto, 45px, (0 0), ($size-05rem $size-1rem), $small-radius, inherit, $color-white-default, $color-primary);
-        gap: $size-06rem;
+      padding: $size-2rem 0;
+      
+      .Back-Button {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: transparent;
+        border: none;
+        color: $color-text-muted;
+        font-size: $fs-medium;
+        font-weight: $fw-bold;
+        cursor: pointer;
+        transition: $transition;
+        padding: 0; // Reset padding
+
         i {
           font-size: $fs-medium;
-          color: $color-white-default;
         }
-        span {
-          font-size: $fs-medium;
-          color: $color-white-default;
-        }
-      }
-      h1 {
-        font-size: $fs-large-xl;
-        font-weight: $fw-bold;
-        color: $color-gray-200;
-      }
-    }
-  }
-  .main {
-    position: relative;
-    width: $full-width;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
-    .article {
-      position: relative;
-      @include display-flex(column, stretch, stretch, $size-1_5rem);
-      flex-wrap: nowrap;
-      width: $full-width;
-      height: $full-height;
-      transform: scale(0);
-      animation: scale-out 0.3s ease-out forwards;
-      @include breakPoints(550px) {
-        @include display-flex(row, stretch, stretch, $size-2rem);
-      }
-    }
-    @keyframes scale-out {
-      from {
-        transform: scale(0);
-        opacity: $opacity-0;
-      }
-      to {
-        transform: scale(1);
-        opacity: $opacity-100;
-      }
-    }
-    .ImgWrapper {
-      display: block;
-      width: $full-width;
-      border-radius: $big-radius;
-      overflow: hidden;
-      cursor: pointer;
-      max-width: $full-width;
-      margin: 0 auto;
-      max-height: 500px;
-      @include breakPoints(550px) {
-        max-width: 50%;
-      }
-      img {
-        width: $full-width;
-        height: $full-height;
-        object-fit: cover;
-        object-position: center;
-        pointer-events: none;
-        transition: $transition;
-        transform-origin: center bottom;
-        animation: translate-top 0.3s ease-out forwards;
-      }
-      @keyframes translate-top {
-        from {
-          transform: translateY(50%);
-          opacity: $opacity-0;
-        }
-        to {
-          transform: translateY(0%);
-          opacity: $opacity-100;
+
+        &:hover {
+          color: $color-primary;
+          transform: translateX(-5px);
         }
       }
     }
-    .ContentWrapper {
-      @include display-flex(column, flex-start, stretch, 0);
-      width: $full-width;
-      max-width: $full-width;
-      @include breakPoints(550px) {
-        max-width: 50%;
-      }
-      .Section {
-        @include display-flex(column, flex-start, stretch, $size-03rem);
-        width: $full-width;
-        &:not(:first-child) {
-          margin-bottom: $size-1rem;
+
+    .main {
+      .Character-Profile {
+        display: flex;
+        flex-direction: column;
+        gap: $size-2rem;
+        background: rgba(32, 35, 41, 0.6);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: $big-radius;
+        padding: $size-2rem;
+        box-shadow: $shadow-strong;
+
+        @include breakPoints(768px) {
+          flex-direction: row;
+          align-items: flex-start;
+          gap: $size-3rem;
         }
-        h3 {
-          color: $color-white-default;
-          font-size: $fs-large-xxl;
-          font-weight: $fw-bold;
-          width: $full-width;
-        }
-        span {
-          color: $color-gray-500;
-          font-size: $fs-medium;
-          font-weight: $fw-medium;
-        }
-        .StatusWrapper {
-          @include display-flex(row, flex-start, center, $size-05rem);
-          margin-bottom: $size-1rem;
-          color: $color-gray-300;
-          font-size: $fs-medium;
-          .StatusDot {
-            width: 12px;
-            height: 12px;
-            background: $color-gray-500;
-            border-radius: $full-radius;
-            &.alive {
-              background: $color-green-600;
+
+        .ImgWrapper {
+          width: 100%;
+          max-width: 350px;
+          border-radius: $big-radius;
+          overflow: hidden;
+          position: relative;
+          align-self: center;
+          box-shadow: 0 0 20px rgba(0,0,0,0.5);
+          
+          @include breakPoints(768px) {
+            align-self: flex-start;
+            flex-shrink: 0;
+          }
+
+          img {
+            width: 100%;
+            display: block;
+            transition: transform 0.3s ease;
+          }
+
+          .Status-Badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+            padding: 0.5rem 1rem;
+            border-radius: $pill-radius;
+            font-weight: $fw-bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+
+            .status-icon {
+              width: 10px;
+              height: 10px;
+              border-radius: 50%;
+              background: $color-unknown;
             }
-            &.dead {
-              background: $color-red-600;
+
+            &.alive .status-icon { background: $color-alive; box-shadow: 0 0 8px $color-alive; }
+            &.dead .status-icon { background: $color-dead; }
+          }
+        }
+
+        .ContentWrapper {
+          flex: 1;
+          width: 100%;
+
+          .Name {
+            font-size: $fs-large-xxl; // 2.5rem
+            font-weight: $fw-black;
+            color: $color-white-default;
+            margin-bottom: $size-2rem;
+            line-height: 1.1;
+            text-align: center;
+            
+            @include breakPoints(768px) {
+              text-align: left;
+              font-size: 3rem;
+            }
+          }
+
+          .Details-Grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: $size-1_5rem;
+
+            @include breakPoints(768px) {
+              grid-template-columns: repeat(2, 1fr);
+            }
+
+            .Detail-Item {
+              background: rgba(255, 255, 255, 0.03);
+              padding: $size-1rem;
+              border-radius: $big-radius;
+              border: 1px solid rgba(255, 255, 255, 0.05);
+
+              .Label {
+                display: block;
+                font-size: $fs-small;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: $color-text-muted;
+                margin-bottom: 0.5rem;
+              }
+
+              .Value {
+                font-size: $fs-large;
+                font-weight: $fw-bold;
+                color: $color-white-default;
+              }
             }
           }
         }
-        p {
-          color: $color-gray-200;
-          font-size: $fs-large;
-          font-weight: $fw-medium;
-        }
       }
     }
-  }
-  .AlterWrapper {
-    position: relative;
-    width: $full-width;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
-    grid-gap: $size-1_5rem;
-    grid-auto-flow: row dense;
-    justify-items: center;
-    margin-top: $size-3rem;
-    padding-top: $size-3rem;
-    margin-bottom: $size-2rem;
-    border-top: 0.2rem solid $bg-color-light-dark;
-    app-card {
-      width: $full-width;
-      height: $full-height;
+
+    .Related-Section {
+      margin-top: $size-3rem;
+
+      .Section-Title {
+        font-size: $fs-large-xl;
+        font-weight: $fw-bold;
+        color: $color-white-default;
+        margin-bottom: $size-1_5rem;
+        padding-bottom: $size-05rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .Grid-Wrapper {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: $size-2rem;
+      }
     }
   }
 }

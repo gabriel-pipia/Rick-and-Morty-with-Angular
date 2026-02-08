@@ -1,53 +1,58 @@
 <div class="section">
   <div class="Container">
     <div class="header">
-      <button [routerLink]="['/characters']">
-        <i class="fa fa-angle-left"></i>
-        <span>back</span>
+      <button [routerLink]="['/characters']" class="Back-Button">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back to Characters</span>
       </button>
-      <h1>Character info</h1>
     </div>
-    <div class="main">
-      <div class="article" *ngIf="Character__Info">
+
+    <div class="main" *ngIf="Character__Info">
+      <div class="Character-Profile">
         <div class="ImgWrapper">
-          <img src="{{ Character__Info.image }}" alt="" />
+          <img [src]="Character__Info.image" [alt]="Character__Info.name" />
+          <div class="Status-Badge" [ngClass]="{
+            'alive': Character__Info.status === 'Alive',
+            'dead': Character__Info.status === 'Dead',
+            'unknown': Character__Info.status === 'Unknown'
+          }">
+            <span class="status-icon"></span>
+            {{ Character__Info.status }}
+          </div>
         </div>
+
         <div class="ContentWrapper">
-          <div class="Section">
-            <h3>{{ Character__Info.name }}</h3>
-          </div>
-          <div class="Section">
-            <div class="StatusWrapper">
-              <div
-                class="StatusDot {{
-                  Character__Info.status == 'Alive'
-                    ? 'alive'
-                    : Character__Info.status == 'Dead'
-                    ? 'dead'
-                    : 'unknown'
-                }}"
-              ></div>
-              <p>
-                {{ Character__Info.status }} - {{ Character__Info.species }}
-              </p>
+          <h1 class="Name">{{ Character__Info.name }}</h1>
+          <div class="Details-Grid">
+            <div class="Detail-Item">
+              <span class="Label">Species</span>
+              <p class="Value">{{ Character__Info.species }} <span *ngIf="Character__Info.type">({{ Character__Info.type }})</span></p>
             </div>
-          </div>
-          <div class="Section">
-            <span>Last known location:</span>
-            <p>{{ Character__Info.location.name }}</p>
-          </div>
-          <div class="Section">
-            <span>Gender:</span>
-            <p>{{ Character__Info.gender }}</p>
+            <div class="Detail-Item">
+              <span class="Label">Gender</span>
+              <p class="Value">{{ Character__Info.gender }}</p>
+            </div>
+            <div class="Detail-Item">
+              <span class="Label">Origin</span>
+              <p class="Value">{{ Character__Info.origin.name }}</p>
+            </div>
+            <div class="Detail-Item">
+              <span class="Label">Last Known Location</span>
+              <p class="Value">{{ Character__Info.location.name }}</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="AlterWrapper">
-      <app-card
-        *ngFor="let Alter of Alter__Arr"
-        [Character]="this.Alter"
-      ></app-card>
+
+    <div class="Related-Section" *ngIf="Alter__Arr.length > 0">
+      <h2 class="Section-Title">Other Versions & Related Characters</h2>
+      <div class="Grid-Wrapper">
+        <app-card
+          *ngFor="let Alter of Alter__Arr"
+          [Character]="Alter"
+        ></app-card>
+      </div>
     </div>
   </div>
 </div>
