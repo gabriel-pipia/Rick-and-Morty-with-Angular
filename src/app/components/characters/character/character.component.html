@@ -1,58 +1,143 @@
-<div class="section">
-  <div class="Container">
-    <div class="header">
+<div class="Character-Page">
+  <!-- Hero Section with Background -->
+  <div class="Character-Hero" *ngIf="Character__Info">
+    <div class="Hero-Background">
+      <img [src]="Character__Info.image" alt="" />
+      <div class="Hero-Overlay"></div>
+    </div>
+    
+    <div class="Container">
       <button [routerLink]="['/characters']" class="Back-Button">
         <i class="fas fa-arrow-left"></i>
-        <span>Back to Characters</span>
+        <span>Back</span>
       </button>
     </div>
+  </div>
 
-    <div class="main" *ngIf="Character__Info">
-      <div class="Character-Profile">
-        <div class="ImgWrapper">
-          <img [src]="Character__Info.image" [alt]="Character__Info.name" />
-          <div class="Status-Badge" [ngClass]="{
-            'alive': Character__Info.status === 'Alive',
-            'dead': Character__Info.status === 'Dead',
-            'unknown': Character__Info.status === 'Unknown'
-          }">
-            <span class="status-icon"></span>
-            {{ Character__Info.status }}
-          </div>
+  <!-- Loading State -->
+  <div class="Loading-State" *ngIf="IsLoading">
+    <div class="Loader"></div>
+    <p>Loading character...</p>
+  </div>
+
+  <!-- Main Content -->
+  <div class="Container" *ngIf="Character__Info && !IsLoading">
+    <!-- Character Profile Card -->
+    <div class="Profile-Card">
+      <div class="Profile-Image">
+        <img [src]="Character__Info.image" [alt]="Character__Info.name" />
+        <div class="Status-Badge" [ngClass]="{
+          'alive': Character__Info.status === 'Alive',
+          'dead': Character__Info.status === 'Dead',
+          'unknown': Character__Info.status === 'unknown'
+        }">
+          <span class="Status-Dot"></span>
+          {{ Character__Info.status }}
+        </div>
+      </div>
+
+      <div class="Profile-Content">
+        <h1 class="Character-Name">{{ Character__Info.name }}</h1>
+        
+        <div class="Info-Tags">
+          <span class="Tag species">
+            <i class="fas fa-dna"></i>
+            {{ Character__Info.species }}
+          </span>
+          <span class="Tag gender">
+            <i class="fas fa-venus-mars"></i>
+            {{ Character__Info.gender }}
+          </span>
+          <span class="Tag type" *ngIf="Character__Info.type">
+            <i class="fas fa-tag"></i>
+            {{ Character__Info.type }}
+          </span>
         </div>
 
-        <div class="ContentWrapper">
-          <h1 class="Name">{{ Character__Info.name }}</h1>
-          <div class="Details-Grid">
-            <div class="Detail-Item">
-              <span class="Label">Species</span>
-              <p class="Value">{{ Character__Info.species }} <span *ngIf="Character__Info.type">({{ Character__Info.type }})</span></p>
+        <div class="Info-Grid">
+          <div class="Info-Card">
+            <div class="Info-Icon">
+              <i class="fas fa-globe"></i>
             </div>
-            <div class="Detail-Item">
-              <span class="Label">Gender</span>
-              <p class="Value">{{ Character__Info.gender }}</p>
-            </div>
-            <div class="Detail-Item">
+            <div class="Info-Text">
               <span class="Label">Origin</span>
               <p class="Value">{{ Character__Info.origin.name }}</p>
             </div>
-            <div class="Detail-Item">
+          </div>
+
+          <div class="Info-Card">
+            <div class="Info-Icon location">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="Info-Text">
               <span class="Label">Last Known Location</span>
               <p class="Value">{{ Character__Info.location.name }}</p>
             </div>
           </div>
+
+          <div class="Info-Card">
+            <div class="Info-Icon episodes">
+              <i class="fas fa-film"></i>
+            </div>
+            <div class="Info-Text">
+              <span class="Label">Episodes</span>
+              <p class="Value">{{ Character__Info.episode.length }} appearances</p>
+            </div>
+          </div>
+
+          <div class="Info-Card">
+            <div class="Info-Icon created">
+              <i class="fas fa-calendar"></i>
+            </div>
+            <div class="Info-Text">
+              <span class="Label">Created</span>
+              <p class="Value">{{ Character__Info.created | date:'mediumDate' }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="Related-Section" *ngIf="Alter__Arr.length > 0">
-      <h2 class="Section-Title">Other Versions & Related Characters</h2>
-      <div class="Grid-Wrapper">
-        <app-card
-          *ngFor="let Alter of Alter__Arr"
-          [Character]="Alter"
-        ></app-card>
+    <!-- Episodes Section -->
+    <section class="Section Episodes-Section" *ngIf="Episodes__Arr.length > 0">
+      <div class="Section-Header">
+        <h2>
+          <i class="fas fa-film"></i>
+          Featured Episodes
+        </h2>
+        <span class="Episode-Count">{{ Character__Info.episode.length }} total</span>
       </div>
-    </div>
+      
+      <div class="Episodes-List">
+        <a 
+          *ngFor="let episode of Episodes__Arr" 
+          [routerLink]="['/episodes/episode', episode.id]"
+          class="Episode-Item">
+          <div class="Episode-Code">{{ episode.episode }}</div>
+          <div class="Episode-Info">
+            <h3>{{ episode.name }}</h3>
+            <span class="Air-Date">
+              <i class="fas fa-calendar-alt"></i>
+              {{ episode.air_date }}
+            </span>
+          </div>
+          <i class="fas fa-chevron-right Arrow"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- Related Characters Section -->
+    <section class="Section Related-Section" *ngIf="Alter__Arr.length > 0">
+      <div class="Section-Header">
+        <h2>
+          <i class="fas fa-users"></i>
+          Related Characters
+        </h2>
+      </div>
+      
+      <div class="Characters-Grid">
+        <app-card *ngFor="let character of Alter__Arr" [Character]="character"></app-card>
+      </div>
+    </section>
   </div>
 </div>
